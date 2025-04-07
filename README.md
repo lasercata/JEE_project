@@ -27,7 +27,7 @@ Replace all the things in brackets with their actual value.
 
 5. You can now see your project in the Project Explorer. In *yourproject/src/main/webapp*, create a new HTML file (right click on *webapp* -> New -> HTML File) named "index.html". Click "Finish".
 
-6. Edit your index.html file as you like; for now, you can simply add a <h1> title in the body of your file. The point is to simply be able to recognize your page once it appears, to make sure it works properly.
+6. Edit your index.html file as you like; for now, you can simply add a `<h1>` title in the body of your file. The point is to simply be able to recognize your page once it appears, to make sure it works properly.
 
 7. Make sure the *Server* tab is open in the bottom of your screen. If you cannot see it, go to *Window / Show View / Server*, or in *Window / Show View / Other*, then find the *Server* folder, which contains the required tab.
 
