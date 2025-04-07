@@ -1,2 +1,7 @@
-*.class
+.settings/
+
+.classpath
+.project
 config.properties
+
+*.class
