@@ -4,22 +4,19 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class AttractionClass{
+	private int id;
 	private String name;
-	private enum typeAttraction{
-		rollercoaster,
-		cinema4d,
-		familial
-	}
 	private typeAttraction type; 
 	private double sizeAlone;
 	private double sizeWithAdult;
 	
-	protected static final SimpleDateFormat heureFormat = new SimpleDateFormat("hh:mm:ss");
+	protected static final SimpleDateFormat heureFormat = new SimpleDateFormat("hh:mm");
 	
 	private ArrayList<Date> heuresOuverture;
 	private ArrayList<Date> heuresFermeture;
 	
-	public AttractionClass(String name, typeAttraction type, double sizeAlone, double sizeWithAdult, ArrayList<String> heuresOuverture, ArrayList<String> heuresFermeture){
+	public AttractionClass(int id, String name, typeAttraction type, double sizeAlone, double sizeWithAdult, ArrayList<String> heuresOuverture, ArrayList<String> heuresFermeture){
+		this.id = id;
 		this.name = name;
 		this.type = type;
 		this.sizeAlone = sizeAlone;
