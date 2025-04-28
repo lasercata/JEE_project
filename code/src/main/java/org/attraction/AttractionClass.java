@@ -12,27 +12,31 @@ public class AttractionClass{
 	
 	protected static final SimpleDateFormat heureFormat = new SimpleDateFormat("hh:mm");
 	
-	private ArrayList<Date> heuresOuverture;
-	private ArrayList<Date> heuresFermeture;
+	private ArrayList<Date> openingHours;
+	private ArrayList<Date> closingHours;
 	
-	public AttractionClass(int id, String name, typeAttraction type, double sizeAlone, double sizeWithAdult, ArrayList<String> heuresOuverture, ArrayList<String> heuresFermeture){
+	public AttractionClass(int id, String name, typeAttraction type, double sizeAlone, double sizeWithAdult, ArrayList<String> openingHours, ArrayList<String> closingHours){
 		this.id = id;
 		this.name = name;
 		this.type = type;
 		this.sizeAlone = sizeAlone;
 		this.sizeWithAdult = sizeWithAdult;
 		try {
-			for (String heureO : heuresOuverture){
-				this.heuresOuverture.add(heureFormat.parse(heureO));
+			for (String heureO : openingHours){
+				this.openingHours.add(heureFormat.parse(heureO));
 			}
-			for (String heureF : heuresFermeture) {
-				this.heuresFermeture.add(heureFormat.parse(heureF));
+			for (String heureF : closingHours) {
+				this.closingHours.add(heureFormat.parse(heureF));
 			}
 		} catch (Exception e){
 			  e.toString();
 		}
 	}
 
+	public int getID(){
+		return id;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -65,20 +69,20 @@ public class AttractionClass{
 		this.sizeWithAdult = sizeWithAdult;
 	}
 
-	public ArrayList<Date> getHeuresOuverture() {
-		return heuresOuverture;
+	public ArrayList<Date> getOpeningHours() {
+		return openingHours;
 	}
 
-	public void setHeuresOuverture(ArrayList<Date> heuresOuverture) {
-		this.heuresOuverture = heuresOuverture;
+	public void setOpeningHours(ArrayList<Date> openingHours) {
+		this.openingHours = openingHours;
 	}
 
-	public ArrayList<Date> getHeuresFermeture() {
-		return heuresFermeture;
+	public ArrayList<Date> getClosingHours() {
+		return closingHours;
 	}
 
-	public void setHeuresFermeture(ArrayList<Date> heuresFermeture) {
-		this.heuresFermeture = heuresFermeture;
+	public void setClosingHours(ArrayList<Date> closingHours) {
+		this.closingHours = closingHours;
 	}
 
 	public static SimpleDateFormat getHeureformat() {

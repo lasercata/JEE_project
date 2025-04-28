@@ -63,6 +63,84 @@ function searchByTitle() {
 </head>
 <body onload="loadAttractions('/JEE_project/api/attraction-management/attractions')">
 
+<form action="/JEE_project/api/attraction-management/createattraction" method="POST">
+	<label for="attraction_name">Nom de l'attraction :</label>
+	<input type = "text" id = "attraction_name" name = "attraction_name" required>
+	
+	<label for="attraction_type">Type de l'attraction :</label>
+	<select id = "attraction_type" name = "attraction_type" size="3">
+		<option value="rollercoaster">Rollercoaster</option>
+		<option value="cinema4d">Cinema 4D</option>
+		<option value="familial">Familial</option>
+	</select>
+	
+	<label for="size_alone">Taille minimale requise (personne seule) :</label>
+	<input type = "number" id = "size_alone" name = "size_alone" step="0.01" required>
+	
+	<label for="size_with_adult">Taille minimale requise (personne accompagnée par un adulte) :</label>
+	<input type = "number" id = "size_with_adult" name = "size_with_adult" step="0.01" required>
+	
+	<h3>Horaires d'ouverture :</h3>
+
+	<div>
+  		<label for="monday_open">Lundi - Ouverture :</label>
+  		<input type="time" id="monday_open" name="opening_hours" required>
+
+  		<label for="monday_close">Fermeture :</label>
+  		<input type="time" id="monday_close" name="closing_hours" required>
+	</div>
+
+	<div>
+  		<label for="tuesday_open">Mardi - Ouverture :</label>
+  		<input type="time" id="tuesday_open" name="opening_hours" required>
+
+  		<label for="tuesday_close">Fermeture :</label>
+  		<input type="time" id="tuesday_close" name="closing_hours" required>
+	</div>
+
+	<div>
+  		<label for="wednesday_open">Mercredi - Ouverture :</label>
+  		<input type="time" id="wednesday_open" name="opening_hours" required>
+
+  		<label for="wednesday_close">Fermeture :</label>
+  		<input type="time" id="wednesday_close" name="closing_hours" required>
+	</div>
+
+	<div>
+  		<label for="thursday_open">Jeudi - Ouverture :</label>
+  		<input type="time" id="thursday_open" name="opening_hours" required>
+
+  		<label for="thursday_close">Fermeture :</label>
+  		<input type="time" id="thursday_close" name="closing_hours" required>
+	</div>
+
+	<div>
+  		<label for="friday_open">Vendredi - Ouverture :</label>
+  		<input type="time" id="friday_open" name="opening_hours" required>
+
+  		<label for="friday_close">Fermeture :</label>
+ 		<input type="time" id="friday_close" name="closing_hours" required>
+	</div>
+
+	<div>
+  		<label for="saturday_open">Samedi - Ouverture :</label>
+ 		<input type="time" id="saturday_open" name="opening_hours" required>
+
+  		<label for="saturday_close">Fermeture :</label>
+  		<input type="time" id="saturday_close" name="closing_hours" required>
+	</div>
+
+	<div>
+  		<label for="sunday_open">Dimanche - Ouverture :</label>
+  		<input type="time" id="sunday_open" name="opening_hours" required>
+
+  		<label for="sunday_close">Fermeture :</label>
+  		<input type="time" id="sunday_close" name="closing_hours" required>
+	</div>
+	
+	<button type = "submit">Ajouter l'attraction</button>
+</form>
+
 <h1>Liste des attractions</h1>
 
 <div id="attractionList"></div>
