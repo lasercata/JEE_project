@@ -27,7 +27,7 @@ public class Schedule {
 
         String days[] = {"lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"};
 
-        for (int i =0; i<6; i++) {
+        for (int i = 0; i < 7; i++) {
             sch += String.format("%s le %s\n", this.schedule[i], days[i]);
         }
         

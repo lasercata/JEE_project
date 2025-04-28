@@ -27,6 +27,6 @@ public class HourRange {
 
     @Override
     public String toString() {
-        return String.format("est ouvert(e) de %s à %s", this.getOpening().toString(), this.getEnding().toString());
+        return String.format("\t- de %s à %s", this.getOpening().toString(), this.getEnding().toString());
     }
 }
