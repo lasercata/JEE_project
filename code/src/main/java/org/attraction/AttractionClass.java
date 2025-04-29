@@ -1,7 +1,8 @@
 package org.attraction;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+
+import time.HourRange;
+import time.Schedule;
 
 public class AttractionClass{
 	private int id;
@@ -9,11 +10,7 @@ public class AttractionClass{
 	private typeAttraction type; 
 	private double sizeAlone;
 	private double sizeWithAdult;
-	
-	protected static final SimpleDateFormat heureFormat = new SimpleDateFormat("hh:mm");
-	
-	private ArrayList<Date> openingHours;
-	private ArrayList<Date> closingHours;
+	private Schedule schedule;
 	
 	public AttractionClass(int id, String name, typeAttraction type, double sizeAlone, double sizeWithAdult, ArrayList<String> openingHours, ArrayList<String> closingHours){
 		this.id = id;
@@ -21,16 +18,7 @@ public class AttractionClass{
 		this.type = type;
 		this.sizeAlone = sizeAlone;
 		this.sizeWithAdult = sizeWithAdult;
-		try {
-			for (String heureO : openingHours){
-				this.openingHours.add(heureFormat.parse(heureO));
-			}
-			for (String heureF : closingHours) {
-				this.closingHours.add(heureFormat.parse(heureF));
-			}
-		} catch (Exception e){
-			  e.toString();
-		}
+		this.schedule = new Schedule(openingHours, closingHours);
 	}
 
 	public int getID(){
@@ -69,25 +57,26 @@ public class AttractionClass{
 		this.sizeWithAdult = sizeWithAdult;
 	}
 
-	public ArrayList<Date> getOpeningHours() {
-		return openingHours;
+	public void setSchedule(HourRange[] schedule) {
+		this.schedule.setSchedule(schedule);
+	}
+	
+	public HourRange[] getSchedule() {
+		return schedule.getSchedule();
+	}
+	
+	// This method will send a String containing the attributes separated with ','
+	// It's useful for SQL adding method
+	public String toSQL(){
+		return id+",'"+name+"','"+type+"',"+sizeAlone+","+sizeWithAdult+","+schedule.toSQL();
 	}
 
-	public void setOpeningHours(ArrayList<Date> openingHours) {
-		this.openingHours = openingHours;
+	@Override
+	public String toString() {
+		return "AttractionClass [id=" + id + ", name=" + name + ", type=" + type + ", sizeAlone=" + sizeAlone
+				+ ", sizeWithAdult=" + sizeWithAdult + schedule.toString()+ "]";
 	}
-
-	public ArrayList<Date> getClosingHours() {
-		return closingHours;
-	}
-
-	public void setClosingHours(ArrayList<Date> closingHours) {
-		this.closingHours = closingHours;
-	}
-
-	public static SimpleDateFormat getHeureformat() {
-		return heureFormat;
-	}
+	
 	
 	
 }

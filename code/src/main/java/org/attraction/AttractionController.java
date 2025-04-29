@@ -49,11 +49,4 @@ public class AttractionController {
 		
 		System.out.println("Nouvelle attraction rajoutée !");
 	}
-	
-	@GET
-	@Produces(MediaType.TEXT_PLAIN)
-	@Path("/hello")
-	public String hello() {
-		return "Hello World!";
-	}
 }
