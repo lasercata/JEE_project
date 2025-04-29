@@ -49,6 +49,6 @@ public class Restaurant {
 
     @Override
     public String toString() {
-        return String.format("Le réstaurant %s spécialisé en cuisine %s dispose de %d places assises et est ouvert : \n%s", this.getName(), this.getCuisine().toString(), this.getNbOfSeats(), this.getSchedule().toString());
+        return String.format("Le restaurant %s spécialisé en cuisine %s dispose de %d places assises et est ouvert : \n%s", this.getName(), this.getCuisine().toString(), this.getNbOfSeats(), this.getSchedule().toString());
     }
 }
