@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import database.DBManager;
+import utils.DBManager;
 
 public class AttractionDAOImpl implements AttractionDAO {
 
