@@ -1,4 +1,4 @@
-package org.attraction;
+package attraction;
 
 import java.util.ArrayList;
 import java.util.List;

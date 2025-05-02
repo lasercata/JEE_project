@@ -1,4 +1,4 @@
-package org.attraction;
+package attraction;
 
 public enum typeAttraction {
 	rollercoaster,
