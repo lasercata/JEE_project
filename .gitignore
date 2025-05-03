@@ -1,0 +1,6 @@
+bin/
+.settings/
+
+.$projet_web.drawio.bkp
+.classpath
+.project

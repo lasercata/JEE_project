@@ -24,6 +24,10 @@ public class HourRange {
     public void setEnding(Hour ending) {
         this.ending = ending;
     }
+    
+    public String toSQL() {
+        return opening.toSQL()+","+ending.toSQL();
+    }
 
     @Override
     public String toString() {

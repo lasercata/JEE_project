@@ -25,6 +25,10 @@ public class Hour {
         this.m = m;
     }
 
+    public String toSQL() {
+    	return "'" + h + ":" + m + "'";
+    }
+    
     @Override
     public String toString() {
         return String.format("%dh%d", this.getH(), this.getM());
@@ -34,5 +38,4 @@ public class Hour {
     public int toMinutes() {
         return this.h * 60 + this.m;
     }
-
 }
