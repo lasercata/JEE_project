@@ -19,18 +19,23 @@ public class Hour {
 
     public void setH(int h) {
         this.h = h;
-    } 
+    }
 
     public void setM(int m) {
         this.m = m;
     }
 
     public String toSQL() {
-    	return "'"+h+":"+m+"'";
+    	return "'" + h + ":" + m + "'";
     }
     
     @Override
     public String toString() {
         return String.format("%dh%d", this.getH(), this.getM());
+    }
+
+    // =================== Other methods ====================
+    public int toMinutes() {
+        return this.h * 60 + this.m;
     }
 }
