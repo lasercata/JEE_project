@@ -23,12 +23,13 @@ public class AttractionController {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/attractions")
 	public String getAttractions() {
-		 ArrayList<AttractionClass> attractions = attractionDAO.findByAll();
+		DBRequests.instantiate_tables();
+		ArrayList<AttractionClass> attractions = DBRequests.getAllAttractions();
 		
-		 GsonBuilder builder = new GsonBuilder();
-		 Gson gson = builder.create();
-		 String json = gson.toJson(attractions);
-		 return json;
+		GsonBuilder builder = new GsonBuilder();
+		Gson gson = builder.create();
+		String json = gson.toJson(attractions);
+		return json;
 	}
 	
 	@POST
@@ -48,6 +49,7 @@ public class AttractionController {
 				new ArrayList<String>(openingHours),
 				new ArrayList<String>(closingHours));
 		
+		System.out.println("TA MERE");
 		DBRequests.addingAttraction(new_attraction);
 		System.out.println("Nouvelle attraction rajoutée !");
 	}

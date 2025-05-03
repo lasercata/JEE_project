@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import time.Schedule;
+import utils.DBRequests;
 
 public class RestaurantManagement {
     private List<Restaurant> restaurants;
@@ -21,7 +22,7 @@ public class RestaurantManagement {
     }
 
     public Restaurant createRestaurant(String name, Cuisine cuisine, Schedule schedule, int nbOfSeats) {
-        return new Restaurant(name, cuisine, schedule, nbOfSeats);
+        return new Restaurant(DBRequests.unused_id("restaurants"), name, cuisine, schedule, nbOfSeats);
     }
 
     public void addRestaurant(Restaurant r) {
