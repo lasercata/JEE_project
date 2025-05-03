@@ -29,4 +29,7 @@ public class Hour {
     public String toString() {
         return String.format("%dh%d", this.getH(), this.getM());
     }
+    public int toMinutes() {
+    	return this.h * 60 + this.m;
+    }
 }
