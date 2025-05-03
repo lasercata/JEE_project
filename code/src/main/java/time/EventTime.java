@@ -29,4 +29,8 @@ public class EventTime {
     public String toString() {
         return "le " + this.day + " de " + this.time.getOpening() + " à " + this.time.getEnding();
     }
+
+    public int getDureeMinutes() { // retourne la duree du show en minutes
+        return this.time.getDuration();
+    }
 }

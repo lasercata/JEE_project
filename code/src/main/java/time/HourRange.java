@@ -33,7 +33,6 @@ public class HourRange {
     public String toString() {
         return String.format("\t- de %s à %s", this.getOpening().toString(), this.getEnding().toString());
     }
-
     // =================== Other methods ====================
     public int getDuration() {
         return this.ending.toMinutes() - this.opening.toMinutes();
