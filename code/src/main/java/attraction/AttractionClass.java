@@ -65,6 +65,11 @@ public class AttractionClass{
 		return schedule.getSchedule();
 	}
 	
+	// This method will send a String of the SQL fields
+	public static String sqlfields() {
+		return "id,name,type,sizealone,sizewithadult,moOP,moCL,tuOP,tuCL,weOP,weCL,thOP,thCL,frOP,frCL,saOP,saCL,suOP,suCL";
+	}
+	
 	// This method will send a String containing the attributes separated with ','
 	// It's useful for SQL adding method
 	public String toSQL(){
