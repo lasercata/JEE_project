@@ -5,7 +5,7 @@
 TODO
 
 ### Database connection
-Add a file `config.properties` in the folder `code` with the following content :
+Add a file `config.properties` in the folder `code/src/main/java/` with the following content :
 ```
 JDBC_URL=jdbc:mysql://[hostname]:[port]/[folder]
 DB_LOGIN=[username]
