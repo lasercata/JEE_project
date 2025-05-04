@@ -6,9 +6,9 @@ TODO
 
 ### Database connection
 #### Config file for the java part
-Add a file `config.properties` in the folder `code` with the following content :
+Add a file `config.properties` in the folder `code/src/main/java/` with the following content :
 ```
-hostname=jdbc:mysql://[hostname]:[port]/[folder]
+JDBC_URL=jdbc:mysql://[hostname]:[port]/[folder]
 DB_LOGIN=[username]
 DB_PASSWORD=[password]
 DB_DRIVER=com.mysql.cj.jdbc.Driver
