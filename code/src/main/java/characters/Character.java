@@ -2,6 +2,7 @@ package characters;
 
 import java.util.ArrayList;
 
+
 import time.EventTime;
 
 public class Character {
