@@ -22,7 +22,7 @@ public class RestaurantController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/restaurants")
-    public String getAttractions() {
+    public String getRestaurants() {
         ArrayList<Restaurant> restaurants = restaurantDAO.findByAll();
 
         GsonBuilder builder = new GsonBuilder();
@@ -34,7 +34,7 @@ public class RestaurantController {
     @POST
     @Path("/create-restaurants")
     @Consumes("application/x-www-form-urlencoded")
-    public void createAttraction(
+    public void createRestaurant(
         @FormParam("restaurant_name") String restaurantName,
         @FormParam("cuisine_type") String cuisineType,
         @FormParam("nb_seats") String nbSeatsString,
@@ -46,6 +46,7 @@ public class RestaurantController {
         Schedule s = new Schedule((ArrayList<String>) openingHours, (ArrayList<String>) closingHours);
 
         Restaurant new_restaurant = new Restaurant(
+            0,
             restaurantName,
             Cuisine.valueOf(cuisineType),
             s,

@@ -22,8 +22,8 @@ public class RestaurantDAOImpl implements RestaurantDAO {
         HourRange hr = new HourRange(opening, closing);
         Schedule s = new Schedule(hr, hr, hr, hr, hr, hr, hr);
 
-        Restaurant r1 = new Restaurant("Restaurant 1", Cuisine.FRENCH, s, 150);
-        Restaurant r2 = new Restaurant("Restaurant 2", Cuisine.INDIAN, s, 200);
+        Restaurant r1 = new Restaurant(0, "Restaurant 1", Cuisine.FRENCH, s, 150);
+        Restaurant r2 = new Restaurant(1, "Restaurant 2", Cuisine.INDIAN, s, 200);
 
         System.out.println(r1.toString());
         System.out.println(r2.toString());

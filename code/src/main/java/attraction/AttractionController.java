@@ -23,7 +23,6 @@ public class AttractionController {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/attractions")
 	public String getAttractions() {
-		DBRequests.instantiate_tables();
 		ArrayList<AttractionClass> attractions = DBRequests.getAllAttractions();
 		
 		GsonBuilder builder = new GsonBuilder();

@@ -14,21 +14,6 @@ import restaurants.Restaurant;
 public class DBRequests {
 	public DBRequests() {}
 	
-	public static void instantiate_tables() {
-		Connection connexion = DBManager.getInstance().getConnection();
-		try {
-			Statement statement = connexion.createStatement();
-			statement.executeQuery("CREATE TABLE IF NOT EXISTS attractions (id INT PRIMARY KEY, name VARCHAR(100), type VARCHAR(50), sizealone FLOAT, sizewithadult FLOAT, moOP TIME, moCL TIME, tuOP TIME, tuCL TIME, weOP TIME, weCL TIME, thOP TIME, thCL TIME, frOP TIME, frCL TIME, saOP TIME, saCL TIME, suOP TIME, suCL TIME);");
-			statement.executeQuery("CREATE TABLE IF NOT EXISTS restaurants (id INT PRIMARY KEY, name VARCHAR(100), cuisine VARCHAR(100), nbofseats INT, moOP TIME, moCL TIME, tuOP TIME, tuCL TIME, weOP TIME, weCL TIME, thOP TIME, thCL TIME, frOP TIME, frCL TIME, saOP TIME, saCL TIME, suOP TIME, suCL TIME);");
-			System.out.println("Tables created !");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			DBManager.getInstance().cleanup(connexion, null, null);
-		}
-	}
-	
 	public static int unused_id(String table){
 		Connection connexion = DBManager.getInstance().getConnection();
 		int newID = 1;
