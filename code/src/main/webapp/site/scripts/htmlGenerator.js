@@ -1,36 +1,15 @@
 const headers = {
-  id: "Identifiant",
-  titre: "Titre",
-  horaires: "Horaires",
+  nom: "Titre",
+  jour: "Jour",
+  heure: "Horaires",
   lieu: "Lieu",
   personnages: "Personnages",
 };
 const data = [
   {
-    id: 1,
-    titre: "Le Roi Lion",
-    horaires: "10h00, 14h00, 18h00",
-    lieu: "Théâtre de la ville",
-    personnages: ["Simba", "Nala"],
-  },
-  {
-    id: 2,
-    titre: "Le Lion Roi",
-    horaires: "10h00, 14h00, 18h00",
-    lieu: "Théâtre de la ville",
-    personnages: ["Simba", "Nala"],
-  },
-  {
-    id: 3,
-    titre: "Roi Le Lion",
-    horaires: "10h00, 14h00, 18h00",
-    lieu: "Théâtre de la ville",
-    personnages: ["Simba", "Nala"],
-  },
-  {
-    id: 4,
-    titre: "Lion Le Lion",
-    horaires: "10h00, 14h00, 18h00",
+    nom: "Le Roi Lion",
+    jour: "Lundi",
+    heure: "10:00",
     lieu: "Théâtre de la ville",
     personnages: ["Simba", "Nala"],
   },
@@ -89,11 +68,11 @@ class HtmlGenerator {
   }
 
   /**
-   * Adds the schedule input.
+   * Adds the table containing the data.
    */
   addTable() {
     // Create a new table element
-    const table = document.createElement("table");
+    this.table = document.createElement("table");
 
     // Create the headers
     const headers_ = document.createElement("tr");
@@ -104,7 +83,7 @@ class HtmlGenerator {
       header_.textContent = this.headers[header];
       headers_.appendChild(header_);
     }
-    table.appendChild(headers_);
+    this.table.appendChild(headers_);
 
     // Fill the table
     console.log(this.data);
@@ -123,11 +102,38 @@ class HtmlGenerator {
         tr.appendChild(td);
       }
 
-      table.appendChild(tr);
+      this.table.appendChild(tr);
     });
 
     // Append the table to the page
-    document.body.appendChild(table);
+    document.body.appendChild(this.table);
+  }
+
+  /**
+   * adds a row to the table.
+   * @param {JSON} rowData - data to add to the row.
+   */
+  addTableRow(rowData) {
+    if (!this.table) {
+      console.warn("La table n'existe pas encore. Utilisez addTable d'abord.");
+      return;
+    }
+
+    // Ajouter rowData à la structure interne de données
+    this.data.push(rowData);
+
+    // Créer la ligne de tableau
+    const tr = document.createElement("tr");
+
+    for (const key in this.headers) {
+      const td = document.createElement("td");
+      const value = rowData[key];
+      console.log(key, rowData, rowData.key, value);
+      td.textContent = Array.isArray(value) ? value.join(", ") : value ?? "";
+      tr.appendChild(td);
+    }
+
+    this.table.appendChild(tr);
   }
 
   /**
@@ -514,7 +520,9 @@ class HtmlGenerator {
     button.textContent = "Ajouter";
     button.addEventListener("click", () => {
       const data = this.collectFormData(ul);
-      console.log(JSON.stringify(data, null, 2)); // for now we print the data...
+      const newData = JSON.stringify(data, null, 2);
+      console.log(newData); // for now we print the data...
+      this.addTableRow(data);
 
       // Reset the inputs
       const inputs = ul.querySelectorAll("input, select");
