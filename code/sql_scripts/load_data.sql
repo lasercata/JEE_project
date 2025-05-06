@@ -75,7 +75,9 @@ insert into shows
     (4, "Puppet Show", 'mercredi', '12:00:00', 45, "Puppet Theater"),
     (5, "Live Concert", 'dimanche', '13:00:00', 75, "Concert Hall"),
     (6, "Drama Play", 'jeudi', '14:00:00', 150, "Drama Theater"),
-    (7, "Fireworks Display", 'samedi', '15:00:00', 180, "Outdoor Arena");
+    (7, "Fireworks Display", 'samedi', '15:00:00', 180, "Outdoor Arena"),
+    (8, "Magic Show's nemesis", 'lundi', '9:00:00', 120, "Egats Niam"),
+    (9, "Magic Show's Aftershow", "lundi", "10:15:00", 120, "Main Stage");
 
 call print("=== Inserting in characters ...");
 insert into characters
@@ -114,3 +116,12 @@ insert into starring
 
 
 -- TRIGGER TESTING ===========================
+-- Test for character name uniqueness
+-- insert into characters (id, name) values (15, 'Sherlock Holmes');
+
+-- Test for show time conflict
+-- insert into shows (id, titre, jour, heureDebut, duree, lieu) values (8, 'Magic Show', 'lundi', '08:00:00', 120, 'Main Stage');
+
+-- Test for character availability
+-- insert into starring (idShow, idCharacter) values (8, 0);
+-- insert into starring (idShow, idCharacter) values (9, 0);
