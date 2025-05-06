@@ -77,7 +77,8 @@ insert into shows
     (6, "Drama Play", 'jeudi', '14:00:00', '16:30:00', "Drama Theater"),
     (7, "Fireworks Display", 'samedi', '15:00:00', '18:00:00', "Outdoor Arena"),
     (8, "Magic Show's nemesis", 'lundi', '9:00:00', '11:00:00', "Egats Niam"),
-    (9, "Magic Show's Aftershow", "lundi", "10:15:00", "12:15:00", "Main Stage");
+    (9, "Magic Show's Aftershow", "lundi", "10:20:00", "12:15:00", "Main Stage"),
+    (10, "Magic Show's Beforeshow", "lundi", "05:40:00","07:40:00", "Main Stage");
 
 call print("=== Inserting in characters ...");
 insert into characters
@@ -125,3 +126,4 @@ insert into starring
 -- Test for character availability
 -- insert into starring (idShow, idCharacter) values (8, 0);
 -- insert into starring (idShow, idCharacter) values (9, 0);
+-- insert into starring (idShow, idCharacter) values (10, 0);

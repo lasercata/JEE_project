@@ -83,8 +83,11 @@ BEGIN
     WHERE s.idCharacter = NEW.idCharacter
       AND sh.jour = new_jour
       AND (
-        TIME_TO_SEC(buffer_start) < TIME_TO_SEC(sh.heureFin) + 900
-        AND TIME_TO_SEC(sh.heureDebut) - 900 < TIME_TO_SEC(buffer_end)
+        (TIME_TO_SEC(buffer_start) < TIME_TO_SEC(sh.heureFin) + 900
+        AND TIME_TO_SEC(buffer_start) > TIME_TO_SEC(sh.heureDebut))
+        OR
+        (TIME_TO_SEC(sh.heureDebut) - 900 < TIME_TO_SEC(buffer_end)
+        AND TIME_TO_SEC(sh.heureFin) > TIME_TO_SEC(buffer_end))
       );
 
     IF conflict_count > 0 THEN
