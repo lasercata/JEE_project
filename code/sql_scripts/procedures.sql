@@ -2,6 +2,9 @@
 This procedure allows to print text.
  */
 DROP PROCEDURE IF EXISTS print;
+DROP TRIGGER IF EXISTS trigger_check_show_conflict;
+DROP TRIGGER IF EXISTS trigger_check_character_name_unique;
+DROP TRIGGER IF EXISTS trigger_check_character_availability;
 
 DELIMITER //
 CREATE PROCEDURE print(in txt TEXT)
@@ -23,8 +26,11 @@ BEGIN
     WHERE lieu = NEW.lieu
       AND jour = NEW.jour
       AND (
-        TIME_TO_SEC(NEW.heureDebut) < TIME_TO_SEC(heureDebut) + duree * 60
-        AND TIME_TO_SEC(heureDebut) < TIME_TO_SEC(NEW.heureDebut) + NEW.duree * 60
+        (TIME_TO_SEC(NEW.heureDebut) < TIME_TO_SEC(heureFin)
+        AND TIME_TO_SEC(NEW.heureFin) > TIME_TO_SEC(heureDebut))
+        OR
+        (TIME_TO_SEC(heureDebut) < TIME_TO_SEC(NEW.heureFin)
+        AND TIME_TO_SEC(heureFin) > TIME_TO_SEC(NEW.heureDebut))
       );
 
     IF conflict_count > 0 THEN
@@ -41,6 +47,7 @@ BEFORE INSERT ON characters
 FOR EACH ROW
 BEGIN
     DECLARE name_count INT;
+
     SELECT COUNT(*) INTO name_count
     FROM characters
     WHERE name = NEW.name;
@@ -56,29 +63,27 @@ CREATE TRIGGER trigger_check_character_availability
 BEFORE INSERT ON starring
 FOR EACH ROW
 BEGIN
-    DECLARE show_start TIME;
-    DECLARE show_end TIME;
+    DECLARE new_jour VARCHAR(20);
+    DECLARE new_debut TIME;
+    DECLARE new_fin TIME;
     DECLARE buffer_start TIME;
     DECLARE buffer_end TIME;
     DECLARE conflict_count INT;
 
-    -- Récupérer l'heure du show concerné
-    SELECT heureDebut, ADDTIME(heureDebut, SEC_TO_TIME(duree * 60))
-    INTO show_start, show_end
-    FROM shows
-    WHERE id = NEW.idShow;
+    -- Récupère les infos du show
+    SELECT jour, heureDebut, heureFin INTO new_jour, new_debut, new_fin
+    FROM shows WHERE id = NEW.idShow LIMIT 1;
 
-    -- Calculer les bornes avec le buffer de 15 minutes
-    SET buffer_start = SUBTIME(show_start, '00:15:00');
-    SET buffer_end = ADDTIME(show_end, '00:15:00');
+    SET buffer_start = SUBTIME(new_debut, '00:15:00');
+    SET buffer_end = ADDTIME(new_fin, '00:15:00');
 
     SELECT COUNT(*) INTO conflict_count
     FROM starring s
     JOIN shows sh ON s.idShow = sh.id
     WHERE s.idCharacter = NEW.idCharacter
-      AND sh.jour = (SELECT jour FROM shows WHERE id = NEW.idShow)
+      AND sh.jour = new_jour
       AND (
-        TIME_TO_SEC(buffer_start) < TIME_TO_SEC(sh.heureDebut) + sh.duree * 60 + 900
+        TIME_TO_SEC(buffer_start) < TIME_TO_SEC(sh.heureFin) + 900
         AND TIME_TO_SEC(sh.heureDebut) - 900 < TIME_TO_SEC(buffer_end)
       );
 

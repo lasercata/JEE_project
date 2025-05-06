@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS shows (
     heureFin TIME,
     lieu VARCHAR(100),
 
-    PRIMARY KEY (id, heureDebut)
+    PRIMARY KEY (id, jour, heureDebut)
 );
 
 call print("=== Creating characters table ...");

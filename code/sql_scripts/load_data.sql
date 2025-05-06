@@ -3,9 +3,9 @@ SET FOREIGN_KEY_CHECKS = 0; -- disable foreign key checks
 
 truncate table attractions;
 truncate table restaurants;
+truncate table starring;
 truncate table shows;
 truncate table characters;
-truncate table starring;
 
 SET FOREIGN_KEY_CHECKS = 1; -- re-enable foreign key checks
 
@@ -66,18 +66,18 @@ insert into restaurants
 
 call print("=== Inserting in shows ...");
 insert into shows
-    (id, titre, jour, heureDebut, duree, lieu)
+    (id, titre, jour, heureDebut, heureFin, lieu)
     values
-    (0, "Magic Show", 'lundi', '08:00:00', 120, "Main Stage"),
-    (1, "Comedy Night", 'mardi', '09:00:00', 90, "Comedy Club"),
-    (2, "Dance Performance", 'jeudi', '10:00:00', 60, "Dance Hall"),
-    (3, "Acrobatics", 'samedi', '11:00:00', 30, "Acrobat Arena"),
-    (4, "Puppet Show", 'mercredi', '12:00:00', 45, "Puppet Theater"),
-    (5, "Live Concert", 'dimanche', '13:00:00', 75, "Concert Hall"),
-    (6, "Drama Play", 'jeudi', '14:00:00', 150, "Drama Theater"),
-    (7, "Fireworks Display", 'samedi', '15:00:00', 180, "Outdoor Arena"),
-    (8, "Magic Show's nemesis", 'lundi', '9:00:00', 120, "Egats Niam"),
-    (9, "Magic Show's Aftershow", "lundi", "10:15:00", 120, "Main Stage");
+    (0, "Magic Show", 'lundi', '08:00:00', '10:00:00', "Main Stage"),
+    (1, "Comedy Night", 'mardi', '09:00:00', '10:30:00', "Comedy Club"),
+    (2, "Dance Performance", 'jeudi', '10:00:00', '11:00:00', "Dance Hall"),
+    (3, "Acrobatics", 'samedi', '11:00:00', '11:30:00', "Acrobat Arena"),
+    (4, "Puppet Show", 'mercredi', '12:00:00', '12:45:00', "Puppet Theater"),
+    (5, "Live Concert", 'dimanche', '13:00:00', '14:15:00', "Concert Hall"),
+    (6, "Drama Play", 'jeudi', '14:00:00', '16:30:00', "Drama Theater"),
+    (7, "Fireworks Display", 'samedi', '15:00:00', '18:00:00', "Outdoor Arena"),
+    (8, "Magic Show's nemesis", 'lundi', '9:00:00', '11:00:00', "Egats Niam"),
+    (9, "Magic Show's Aftershow", "lundi", "10:15:00", "12:15:00", "Main Stage");
 
 call print("=== Inserting in characters ...");
 insert into characters
@@ -120,7 +120,7 @@ insert into starring
 -- insert into characters (id, name) values (15, 'Sherlock Holmes');
 
 -- Test for show time conflict
--- insert into shows (id, titre, jour, heureDebut, duree, lieu) values (8, 'Magic Show', 'lundi', '08:00:00', 120, 'Main Stage');
+-- insert into shows (id, titre, jour, heureDebut, heureFin, lieu) values (12, 'Other thing', 'lundi', '08:00:00', 120, 'Main Stage');
 
 -- Test for character availability
 -- insert into starring (idShow, idCharacter) values (8, 0);
