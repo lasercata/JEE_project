@@ -2,8 +2,8 @@ package statistics;
 import java.util.List;
 import java.util.Map;
 
-import characters.Show;
-import characters.Character;
+import shows.Show;
+import shows.Character;
 import time.EventTime;
 
 

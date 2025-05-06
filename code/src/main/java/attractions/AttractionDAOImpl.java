@@ -1,4 +1,4 @@
-package attraction;
+package attractions;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

@@ -1,4 +1,4 @@
-package characters;
+package shows;
 
 import time.EventTime;
 import time.HourRange;

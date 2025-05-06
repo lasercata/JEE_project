@@ -1,4 +1,4 @@
-package attraction;
+package attractions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 
 import utils.GeneralDAO;
-import attraction.AttractionDAOImpl;
+import attractions.AttractionDAOImpl;
 
 @Path("/attractions")
 public class AttractionController {

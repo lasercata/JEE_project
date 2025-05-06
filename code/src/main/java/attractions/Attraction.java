@@ -1,4 +1,4 @@
-package attraction;
+package attractions;
 
 import java.util.ArrayList;
 
