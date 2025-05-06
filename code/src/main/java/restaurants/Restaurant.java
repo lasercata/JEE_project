@@ -64,15 +64,26 @@ public class Restaurant {
         this.nbOfSeats = nbOfSeats;
     }
     
-    // This method will send a String of the SQL fields
- 	public static String sqlfields() {
- 		return "id,name,cuisine,nbofseats,moOP,moCL,tuOP,tuCL,weOP,weCL,thOP,thCL,frOP,frCL,saOP,saCL,suOP,suCL";
- 	}
+    /**
+     * Calculates a string containing the SQL fields.
+     */
+    public static String sqlFields() {
+        return "id, name, cuisine, nbofseats, moOP, moCL, tuOP, tuCL, weOP, weCL, thOP, thCL, frOP, frCL, saOP, saCL, suOP, suCL";
+    }
+
+    /**
+     * Returns the name of the associated sql table
+     */
+    public static String getTblName() {
+        return "restaurants";
+    }
  	
- 	// This method will send a String containing the attributes separated with ','
- 	// It's useful for SQL adding method
+	/**
+	 * Calculates a string containing all the attributes of the class, separated with commas.
+	 * It's useful to add the class into the SQL database.
+	 */
  	public String toSQL(){
- 		return id+",'"+name+"','"+cuisine+"',"+nbOfSeats+","+schedule.toSQL();
+ 		return id + ",'" + name + "','" + cuisine + "'," + nbOfSeats + "," + schedule.toSQL();
  	}
 
     @Override

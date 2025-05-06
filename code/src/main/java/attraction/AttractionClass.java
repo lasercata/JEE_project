@@ -1,10 +1,11 @@
 package attraction;
+
 import java.util.ArrayList;
 
 import time.HourRange;
 import time.Schedule;
 
-public class AttractionClass{
+public class AttractionClass {
 	private int id;
 	private String name;
 	private typeAttraction type; 
@@ -12,6 +13,7 @@ public class AttractionClass{
 	private double sizeWithAdult;
 	private Schedule schedule;
 	
+	//TODO: remove id from the constructor
 	public AttractionClass(int id, String name, typeAttraction type, double sizeAlone, double sizeWithAdult, ArrayList<String> openingHours, ArrayList<String> closingHours){
 		this.id = id;
 		this.name = name;
@@ -65,15 +67,26 @@ public class AttractionClass{
 		return schedule.getSchedule();
 	}
 	
-	// This method will send a String of the SQL fields
-	public static String sqlfields() {
-		return "id,name,type,sizealone,sizewithadult,moOP,moCL,tuOP,tuCL,weOP,weCL,thOP,thCL,frOP,frCL,saOP,saCL,suOP,suCL";
+	/**
+	 * Calculates a string containing the SQL fields.
+	 */
+	public static String sqlFields() {
+		return "id, name, type, sizealone, sizewithadult, moOP, moCL, tuOP, tuCL, weOP, weCL, thOP, thCL, frOP, frCL, saOP, saCL, suOP, suCL";
 	}
+
+    /**
+     * Returns the name of the associated sql table
+     */
+    public static String getTblName() {
+        return "attractions";
+    }
 	
-	// This method will send a String containing the attributes separated with ','
-	// It's useful for SQL adding method
-	public String toSQL(){
-		return id+",'"+name+"','"+type+"',"+sizeAlone+","+sizeWithAdult+","+schedule.toSQL();
+	/**
+	 * Calculates a string containing all the attributes of the class, separated with commas.
+	 * It's useful to add the class into the SQL database.
+	 */
+	public String toSQL() {
+		return id + ", '" + name + "', '" + type + "', " + sizeAlone + ", " + sizeWithAdult + ", " + schedule.toSQL();
 	}
 
 	@Override

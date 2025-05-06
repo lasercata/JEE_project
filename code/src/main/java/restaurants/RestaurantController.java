@@ -13,17 +13,19 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+
 import time.Schedule;
+import utils.GeneralDAO;
 
 @Path("/restaurant-management")
 public class RestaurantController {
-    private RestaurantDAO restaurantDAO = new RestaurantDAOImpl();
+    private GeneralDAO<Restaurant> restaurantDAO = new RestaurantDAOImpl();
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/restaurants")
     public String getRestaurants() {
-        ArrayList<Restaurant> restaurants = restaurantDAO.findByAll();
+        ArrayList<Restaurant> restaurants = restaurantDAO.getAll();
 
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
@@ -46,15 +48,14 @@ public class RestaurantController {
         Schedule s = new Schedule((ArrayList<String>) openingHours, (ArrayList<String>) closingHours);
 
         Restaurant new_restaurant = new Restaurant(
-            0,
+            0, //TODO
             restaurantName,
             Cuisine.valueOf(cuisineType),
             s,
             nbSeats
         );
 
-        // TODO: call the part that saves in the DB.
-
+        restaurantDAO.add(new_restaurant);
         System.out.println("New restaurant added !");
     }
 }
