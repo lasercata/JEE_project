@@ -21,19 +21,19 @@ public interface GeneralDAO<T> {
      *
      * @param id - the id of the element to get
      */
-	public T getById(int id);
+    public T getById(int id);
 
-	/**
-	 * Adds the element `new_item` to the database.
-	 *
-	 * @param new_item - the element to add
-	 */
+    /**
+     * Adds the element `new_item` to the database.
+     *
+     * @param new_item - the element to add
+     */
     public void add(T new_item);
 
     /**
      * TODO: describe how it works ?
      */
-	public void edit(T item);
+    public void edit(T item);
 
     /**
      * Deletes a row in the table `table`.

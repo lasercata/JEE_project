@@ -6,73 +6,73 @@ import time.HourRange;
 import time.Schedule;
 
 public class Attraction {
-	private int id;
-	private String name;
-	private typeAttraction type; 
-	private double sizeAlone;
-	private double sizeWithAdult;
-	private Schedule schedule;
-	
-	//TODO: remove id from the constructor
-	public Attraction(int id, String name, typeAttraction type, double sizeAlone, double sizeWithAdult, ArrayList<String> openingHours, ArrayList<String> closingHours){
-		this.id = id;
-		this.name = name;
-		this.type = type;
-		this.sizeAlone = sizeAlone;
-		this.sizeWithAdult = sizeWithAdult;
-		this.schedule = new Schedule(openingHours, closingHours);
-	}
+    private int id;
+    private String name;
+    private typeAttraction type; 
+    private double sizeAlone;
+    private double sizeWithAdult;
+    private Schedule schedule;
 
-	public int getID(){
-		return id;
-	}
-	
-	public String getName() {
-		return name;
-	}
+    //TODO: remove id from the constructor
+    public Attraction(int id, String name, typeAttraction type, double sizeAlone, double sizeWithAdult, ArrayList<String> openingHours, ArrayList<String> closingHours){
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.sizeAlone = sizeAlone;
+        this.sizeWithAdult = sizeWithAdult;
+        this.schedule = new Schedule(openingHours, closingHours);
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public int getID(){
+        return id;
+    }
 
-	public typeAttraction getType() {
-		return type;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setType(typeAttraction type) {
-		this.type = type;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public double getSizeAlone() {
-		return sizeAlone;
-	}
+    public typeAttraction getType() {
+        return type;
+    }
 
-	public void setSizeAlone(double sizeAlone) {
-		this.sizeAlone = sizeAlone;
-	}
+    public void setType(typeAttraction type) {
+        this.type = type;
+    }
 
-	public double getSizeWithAdult() {
-		return sizeWithAdult;
-	}
+    public double getSizeAlone() {
+        return sizeAlone;
+    }
 
-	public void setSizeWithAdult(double sizeWithAdult) {
-		this.sizeWithAdult = sizeWithAdult;
-	}
+    public void setSizeAlone(double sizeAlone) {
+        this.sizeAlone = sizeAlone;
+    }
 
-	public void setSchedule(HourRange[] schedule) {
-		this.schedule.setSchedule(schedule);
-	}
-	
-	public HourRange[] getSchedule() {
-		return schedule.getSchedule();
-	}
-	
-	/**
-	 * Calculates a string containing the SQL fields.
-	 */
-	public static String sqlFields() {
-		return "id, name, type, sizealone, sizewithadult, moOP, moCL, tuOP, tuCL, weOP, weCL, thOP, thCL, frOP, frCL, saOP, saCL, suOP, suCL";
-	}
+    public double getSizeWithAdult() {
+        return sizeWithAdult;
+    }
+
+    public void setSizeWithAdult(double sizeWithAdult) {
+        this.sizeWithAdult = sizeWithAdult;
+    }
+
+    public void setSchedule(HourRange[] schedule) {
+        this.schedule.setSchedule(schedule);
+    }
+
+    public HourRange[] getSchedule() {
+        return schedule.getSchedule();
+    }
+
+    /**
+     * Calculates a string containing the SQL fields.
+     */
+    public static String sqlFields() {
+        return "id, name, type, sizealone, sizewithadult, moOP, moCL, tuOP, tuCL, weOP, weCL, thOP, thCL, frOP, frCL, saOP, saCL, suOP, suCL";
+    }
 
     /**
      * Returns the name of the associated sql table
@@ -80,21 +80,21 @@ public class Attraction {
     public static String getTblName() {
         return "attractions";
     }
-	
-	/**
-	 * Calculates a string containing all the attributes of the class, separated with commas.
-	 * It's useful to add the class into the SQL database.
-	 */
-	public String toSQL() {
-		return id + ", '" + name + "', '" + type + "', " + sizeAlone + ", " + sizeWithAdult + ", " + schedule.toSQL();
-	}
 
-	@Override
-	public String toString() {
-		return "Attraction [id=" + id + ", name=" + name + ", type=" + type + ", sizeAlone=" + sizeAlone
-				+ ", sizeWithAdult=" + sizeWithAdult + schedule.toString()+ "]";
-	}
-	
-	
-	
+    /**
+     * Calculates a string containing all the attributes of the class, separated with commas.
+     * It's useful to add the class into the SQL database.
+     */
+    public String toSQL() {
+        return id + ", '" + name + "', '" + type + "', " + sizeAlone + ", " + sizeWithAdult + ", " + schedule.toSQL();
+    }
+
+    @Override
+    public String toString() {
+        return "Attraction [id=" + id + ", name=" + name + ", type=" + type + ", sizeAlone=" + sizeAlone
+            + ", sizeWithAdult=" + sizeWithAdult + schedule.toString()+ "]";
+    }
+
+
+
 }
