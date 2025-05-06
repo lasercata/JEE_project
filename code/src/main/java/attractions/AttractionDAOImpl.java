@@ -30,8 +30,7 @@ public class AttractionDAOImpl implements GeneralDAO<Attraction> {
             closingHours.add(rs.getString(hour));
         }
 
-        //TODO: convert to Schedule here, and change the constructor
-        Attraction result = new Attraction(id1,name,type,sizeAlone,sizeWithAdult,openingHours,closingHours);
+        Attraction result = new Attraction(id1, name, type, sizeAlone, sizeWithAdult, openingHours, closingHours);
         return result;
     }
 

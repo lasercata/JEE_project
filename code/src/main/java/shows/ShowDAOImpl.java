@@ -15,7 +15,7 @@ import utils.GeneralDAO;
 
 public class ShowDAOImpl implements GeneralDAO<Show> {
     private Show readQueryResult(ResultSet rs) throws SQLException {
-        int id1 = rs.getInt("id");
+        int id = rs.getInt("id");
         String title = rs.getString("titre");
         String day = rs.getString("jour");
         String begTime = rs.getString("heureDebut");
@@ -28,7 +28,7 @@ public class ShowDAOImpl implements GeneralDAO<Show> {
 
         // Create the show
         Show new_show = new Show(
-            GeneralDAO.unused_id(Show.getTblName()),
+            id,
             title,
             schedule,
             location,

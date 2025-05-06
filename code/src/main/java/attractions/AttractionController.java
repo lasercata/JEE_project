@@ -95,19 +95,17 @@ public class AttractionController {
         @FormParam("opening_hours") List<String> openingHours,
         @FormParam("closing_hours") List<String> closingHours
     ) {
-        // Attraction new_attraction = new Attraction(
-        //         GeneralDAO.unused_id("attractions"), 
-        //         attractionName, 
-        //         typeAttraction.valueOf(attractionType),
-        //         Double.parseDouble(sizeAlone.replace(',', '.')), // on enlève les "," française au cas où et on parse en Double
-        //         Double.parseDouble(sizeWithAdult.replace(',', '.')),
-        //         new ArrayList<String>(openingHours),
-        //         new ArrayList<String>(closingHours));
-        //
-        // attractionDAO.add(new_attraction);
-        // System.out.println("Nouvelle attraction rajoutée !");
-        //
-        //TODO: this
+        Attraction new_attraction = new Attraction(
+                GeneralDAO.unused_id(Attraction.getTblName()),
+                attractionName, 
+                typeAttraction.valueOf(attractionType),
+                Double.parseDouble(sizeAlone.replace(',', '.')), // on enlève les "," française au cas où et on parse en Double
+                Double.parseDouble(sizeWithAdult.replace(',', '.')),
+                new ArrayList<String>(openingHours),
+                new ArrayList<String>(closingHours));
+
+        attractionDAO.edit(new_attraction);
+        System.out.println("Attraction edited !");
     }
 
     /**

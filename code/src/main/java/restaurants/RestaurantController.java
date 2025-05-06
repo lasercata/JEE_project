@@ -94,22 +94,20 @@ public class RestaurantController {
         @FormParam("opening_hours") List<String> openingHours,
         @FormParam("closing_hours") List<String> closingHours
     ) {
-        // // Make Schedule
-        // int nbSeats = Integer.parseInt(nbSeatsString);
-        // Schedule s = new Schedule((ArrayList<String>) openingHours, (ArrayList<String>) closingHours);
-        //
-        // Restaurant new_restaurant = new Restaurant(
-        //     GeneralDAO.unused_id(Restaurant.getTblName()),
-        //     restaurantName,
-        //     Cuisine.valueOf(cuisineType),
-        //     s,
-        //     nbSeats
-        // );
-        //
-        // restaurantDAO.add(new_restaurant);
-        // System.out.println("New restaurant added !");
-        //
-        //TODO
+        // Make Schedule
+        int nbSeats = Integer.parseInt(nbSeatsString);
+        Schedule s = new Schedule((ArrayList<String>) openingHours, (ArrayList<String>) closingHours);
+
+        Restaurant new_restaurant = new Restaurant(
+            GeneralDAO.unused_id(Restaurant.getTblName()),
+            restaurantName,
+            Cuisine.valueOf(cuisineType),
+            s,
+            nbSeats
+        );
+
+        restaurantDAO.edit(new_restaurant);
+        System.out.println("Restaurant edited !");
     }
 
     /**
