@@ -11,8 +11,8 @@ END //
 DELIMITER ;
 
 
---================ TRIGGERs
 DELIMITER //
+
 CREATE TRIGGER trigger_check_show_conflict
 BEFORE INSERT ON shows
 FOR EACH ROW
@@ -20,8 +20,7 @@ BEGIN
     DECLARE conflict_count INT;
     SELECT COUNT(*) INTO conflict_count
     FROM shows
-    WHERE lieu = NEW.lieu --TODO: there is an error here (what is NEW ?)
-      
+    WHERE lieu = NEW.lieu
       AND jour = NEW.jour
       AND (
         TIME_TO_SEC(NEW.heureDebut) < TIME_TO_SEC(heureDebut) + duree * 60
@@ -32,6 +31,7 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Conflit : un show est déjà prévu à ce lieu et cet horaire.';
     END IF;
 END //
+
 DELIMITER ;
 
 
