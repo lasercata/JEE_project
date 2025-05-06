@@ -36,6 +36,18 @@ const data = [
   },
 ];
 
+function loadAttractions() {
+  return new HtmlGenerator("Attractions", headers, data);
+}
+
+function loadRestaurants() {
+  return new HtmlGenerator("Restaurants", headers, data);
+}
+
+function loadShows() {
+  return new HtmlGenerator("Shows", headers, data);
+}
+
 function load(url) {
   fetch(url)
     // .then((response) => response.json())
