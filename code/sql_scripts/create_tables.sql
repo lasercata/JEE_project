@@ -1,3 +1,4 @@
+call print("=== Creating attractions table ...");
 CREATE TABLE IF NOT EXISTS attractions (
     id INT PRIMARY KEY,
     name VARCHAR(100),
@@ -20,6 +21,7 @@ CREATE TABLE IF NOT EXISTS attractions (
     suCL TIME
 );
 
+call print("=== Creating restaurants table ...");
 CREATE TABLE IF NOT EXISTS restaurants (
     id INT PRIMARY KEY,
     name VARCHAR(100),

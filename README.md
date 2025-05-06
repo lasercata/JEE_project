@@ -19,18 +19,16 @@ Replace all the things in brackets with their actual value.
 #### Population scripts
 To connect to the database in command line, you can run the script `connect_to_db.sh`:
 ```
-cd code/
-./connect_to_db.sh
+./code/connect_to_db.sh
 ```
 
 To run a script in the DB, you can use `run_sql_script.sh`:
 ```
-cd code/
-./run_sql_script.sh sql_scripts/[scriptname].sql
+./code/run_sql_script.sh code/sql_scripts/[scriptname].sql
 ```
 where you replace `[scriptname]` with the name of your script.
 
-It is needed to be in the folder `code` to run those scripts and to have created correctly the `config.properties` file, because the bash scripts read it.
+It is needed to be in the root folder of the project to run those scripts and to have created correctly the `config.properties` file, because the bash scripts read it.
 
 ### Setting up a Tomcat Apache server for eclipse
 
