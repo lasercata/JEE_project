@@ -9,6 +9,17 @@ public class Hour {
         this.m = m;
     }
 
+    /**
+     * Constructor of the Hour class, from a string
+     *
+     * @param hour - the hour in the format 'xx:xx', where 'x' can be replaced by any number.
+     */
+    public Hour(String hour) {
+        String[] hourParts = hour.split(":");
+        this.h = Integer.parseInt(hourParts[0]);
+        this.h = Integer.parseInt(hourParts[1]);
+    }
+
     public int getH() {
         return this.h;
     }

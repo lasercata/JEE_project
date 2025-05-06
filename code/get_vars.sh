@@ -3,7 +3,7 @@
 # Script that define variables to use to connect to the DB in command line.
 # Reads from `config.properties`. See the README for details.
 
-fn="src/main/java/config.properties"
+fn="code/src/main/java/config.properties"
 db_name="tonnerre2zeus_schema"
 
 user=$(grep DB_LOGIN "$fn" | awk -F= '{print $2}')

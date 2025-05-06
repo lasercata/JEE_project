@@ -11,46 +11,44 @@ import time.Hour;
 import time.HourRange;
 import time.Schedule;
 import utils.DBManager;
+import utils.GeneralDAO;
 
-public class RestaurantDAOImpl implements RestaurantDAO {
-    @Override
-    public ArrayList<Restaurant> findByAll() {
-        ArrayList<Restaurant> restaurantList = new ArrayList<>();
+public class RestaurantDAOImpl implements GeneralDAO<Restaurant> {
+    private Restaurant readQueryResult(ResultSet rs) throws SQLException {
+        int id = rs.getInt("id");
+        String name = rs.getString("name");
+        Cuisine cuisine = Cuisine.valueOf(rs.getString("cuisine"));
+        int nbOfSeats = rs.getInt("nbofseats");
+        String[] openingHoursFields = {"moOP","tuOP","weOP","thOP","frOP","saOP","suOP"};
+        String[] closingHoursFields = {"moCL","tuCL","weCL","thCL","frCL","saCL","suCL"};
+        ArrayList<String> openingHours = new ArrayList<String>();
+        ArrayList<String> closingHours = new ArrayList<String>();
 
-        Hour opening = new Hour(8, 0);
-        Hour closing = new Hour(19, 0);
-        HourRange hr = new HourRange(opening, closing);
-        Schedule s = new Schedule(hr, hr, hr, hr, hr, hr, hr);
+        for (String hour : openingHoursFields) {
+            openingHours.add(rs.getString(hour));
+        }
 
-        Restaurant r1 = new Restaurant("Restaurant 1", Cuisine.FRENCH, s, 150);
-        Restaurant r2 = new Restaurant("Restaurant 2", Cuisine.INDIAN, s, 200);
+        for (String hour : closingHoursFields) {
+            closingHours.add(rs.getString(hour));
+        }
 
-        System.out.println(r1.toString());
-        System.out.println(r2.toString());
-
-        restaurantList.add(r1);
-        restaurantList.add(r2);
-
-        return restaurantList;
+        //TODO: convert to Schedule here, and change the constructor
+        Restaurant result = new Restaurant(id, name, cuisine, openingHours, closingHours, nbOfSeats);
+        return result;
     }
 
-
-    //TODO: change the code of this method
     @Override
-    public ArrayList<Restaurant> findByAllFinal() {
-        ArrayList<Restaurant> restaurantsList = new ArrayList<>();
-
+    public ArrayList<Restaurant> getAll() {
         Connection connexion = DBManager.getInstance().getConnection();
+
+        ArrayList<Restaurant> allList = new ArrayList<>();
         try {
             Statement statement = connexion.createStatement();
-            ResultSet rs = statement.executeQuery("select id,title,author from books;");
-            while(rs.next()) {
-                int id = rs.getInt("id");
-                String title = rs.getString("title");
-                String author = rs.getString("author");
+            ResultSet rs = statement.executeQuery("select " + Restaurant.sqlFields() + " from " + Restaurant.getTblName() + ";");
 
-                // Restaurant new_restaurant = new Restaurant(id,title,author);
-                // restaurantsList.add(new_restaurant);
+            while(rs.next()) {
+                Restaurant new_restaurant = this.readQueryResult(rs);
+                allList.add(new_restaurant);
             }
         }
         catch (SQLException e) {
@@ -59,17 +57,67 @@ public class RestaurantDAOImpl implements RestaurantDAO {
         finally {
             DBManager.getInstance().cleanup(connexion, null, null);
         }
-
-        return restaurantsList;
+        return allList;
     }
 
-    //TODO: change the code of this method
     @Override
-    public void addingRestaurant(Restaurant new_restaurant){
+    public Restaurant getById(int id) {
+        Connection connexion = DBManager.getInstance().getConnection();
+
+        try {
+            Statement statement = connexion.createStatement();
+            ResultSet rs = statement.executeQuery("select "+ Restaurant.sqlFields() + " from attractions where id = " + id + ";");
+
+            while(rs.next()) {
+                return this.readQueryResult(rs);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            DBManager.getInstance().cleanup(connexion, null, null);
+        }
+        return null;
+    }
+
+    @Override
+    public void add(Restaurant new_restaurant) {
+        Connection connexion = DBManager.getInstance().getConnection();
+
+        try {
+            Statement statement = connexion.createStatement();
+            statement.executeUpdate("insert into attractions (" + Restaurant.sqlFields() + ") values (" +  new_restaurant.toSQL() + ");");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            DBManager.getInstance().cleanup(connexion, null, null);
+        }
+    }
+
+    @Override
+    public void edit(Restaurant restaurant) {
         Connection connexion = DBManager.getInstance().getConnection();
         try {
             Statement statement = connexion.createStatement();
-            ResultSet rs = statement.executeQuery("select id,title,author from books;");
+            statement.executeUpdate("update attractions set name = '"+ restaurant.getName() +"', cuisine = '"+restaurant.getCuisine()+"', nbOfSeats = "+restaurant.getNbOfSeats()+", \" \r\n"
+                    + "    moOP = '" + String.format("%02d:%02d", restaurant.getSchedule()[0].getOpening().getH(), restaurant.getSchedule()[0].getOpening().getM()) + "', +\r\n"
+                    + "    moCL = '" + String.format("%02d:%02d", restaurant.getSchedule()[0].getEnding().getH(), restaurant.getSchedule()[0].getEnding().getM()) + "', +\r\n"
+                    + "    tuOP = '" + String.format("%02d:%02d", restaurant.getSchedule()[1].getOpening().getH(), restaurant.getSchedule()[1].getOpening().getM()) + "', +\r\n"
+                    + "    tuCL = '" + String.format("%02d:%02d", restaurant.getSchedule()[1].getEnding().getH(), restaurant.getSchedule()[1].getEnding().getM()) + "', +\r\n"
+                    + "    weOP = '" + String.format("%02d:%02d", restaurant.getSchedule()[2].getOpening().getH(), restaurant.getSchedule()[2].getOpening().getM()) + "', +\r\n"
+                    + "    weCL = '" + String.format("%02d:%02d", restaurant.getSchedule()[2].getEnding().getH(), restaurant.getSchedule()[2].getEnding().getM()) + "', +\r\n"
+                    + "    thOP = '" + String.format("%02d:%02d", restaurant.getSchedule()[3].getOpening().getH(), restaurant.getSchedule()[3].getOpening().getM()) + "', +\r\n"
+                    + "    thCL = '" + String.format("%02d:%02d", restaurant.getSchedule()[3].getEnding().getH(), restaurant.getSchedule()[3].getEnding().getM()) + "', +\r\n"
+                    + "    frOP = '" + String.format("%02d:%02d", restaurant.getSchedule()[4].getOpening().getH(), restaurant.getSchedule()[4].getOpening().getM()) + "', +\r\n"
+                    + "    frCL = '" + String.format("%02d:%02d", restaurant.getSchedule()[4].getEnding().getH(), restaurant.getSchedule()[4].getEnding().getM()) + "', +\r\n"
+                    + "    saOP = '" + String.format("%02d:%02d", restaurant.getSchedule()[5].getOpening().getH(), restaurant.getSchedule()[5].getOpening().getM()) + "', +\r\n"
+                    + "    saCL = '" + String.format("%02d:%02d", restaurant.getSchedule()[5].getEnding().getH(), restaurant.getSchedule()[5].getEnding().getM()) + "', +\r\n"
+                    + "    suOP = '" + String.format("%02d:%02d", restaurant.getSchedule()[6].getOpening().getH(), restaurant.getSchedule()[6].getOpening().getM()) + "', +\r\n"
+                    + "    suCL = '" + String.format("%02d:%02d", restaurant.getSchedule()[6].getEnding().getH(), restaurant.getSchedule()[6].getEnding().getM()) + "' +\r\n"
+                    + "    WHERE id = " + restaurant.getID() + ";");
         }
         catch (SQLException e) {
             e.printStackTrace();
