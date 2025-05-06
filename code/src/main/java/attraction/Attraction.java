@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import time.HourRange;
 import time.Schedule;
 
-public class AttractionClass {
+public class Attraction {
 	private int id;
 	private String name;
 	private typeAttraction type; 
@@ -14,7 +14,7 @@ public class AttractionClass {
 	private Schedule schedule;
 	
 	//TODO: remove id from the constructor
-	public AttractionClass(int id, String name, typeAttraction type, double sizeAlone, double sizeWithAdult, ArrayList<String> openingHours, ArrayList<String> closingHours){
+	public Attraction(int id, String name, typeAttraction type, double sizeAlone, double sizeWithAdult, ArrayList<String> openingHours, ArrayList<String> closingHours){
 		this.id = id;
 		this.name = name;
 		this.type = type;
@@ -91,7 +91,7 @@ public class AttractionClass {
 
 	@Override
 	public String toString() {
-		return "AttractionClass [id=" + id + ", name=" + name + ", type=" + type + ", sizeAlone=" + sizeAlone
+		return "Attraction [id=" + id + ", name=" + name + ", type=" + type + ", sizeAlone=" + sizeAlone
 				+ ", sizeWithAdult=" + sizeWithAdult + schedule.toString()+ "]";
 	}
 	

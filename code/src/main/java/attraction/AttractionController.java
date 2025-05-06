@@ -23,7 +23,7 @@ import attraction.AttractionDAOImpl;
 
 @Path("/attractions")
 public class AttractionController {
-    private GeneralDAO<AttractionClass> attractionDAO = new AttractionDAOImpl();
+    private GeneralDAO<Attraction> attractionDAO = new AttractionDAOImpl();
 
     /**
      * Gets all the attractions
@@ -31,7 +31,7 @@ public class AttractionController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getAttractions() {
-        ArrayList<AttractionClass> attractions = attractionDAO.getAll();
+        ArrayList<Attraction> attractions = attractionDAO.getAll();
 
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
@@ -46,7 +46,7 @@ public class AttractionController {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getAttractionById(@PathParam("id") int id) {
-        AttractionClass attraction = attractionDAO.getById(id);
+        Attraction attraction = attractionDAO.getById(id);
 
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
@@ -67,8 +67,8 @@ public class AttractionController {
         @FormParam("opening_hours") List<String> openingHours,
         @FormParam("closing_hours") List<String> closingHours
     ) {
-        AttractionClass new_attraction = new AttractionClass(
-                GeneralDAO.unused_id(AttractionClass.getTblName()),
+        Attraction new_attraction = new Attraction(
+                GeneralDAO.unused_id(Attraction.getTblName()),
                 attractionName, 
                 typeAttraction.valueOf(attractionType),
                 Double.parseDouble(sizeAlone.replace(',', '.')), // on enlève les "," française au cas où et on parse en Double
@@ -95,7 +95,7 @@ public class AttractionController {
         @FormParam("opening_hours") List<String> openingHours,
         @FormParam("closing_hours") List<String> closingHours
     ) {
-        // AttractionClass new_attraction = new AttractionClass(
+        // Attraction new_attraction = new Attraction(
         //         GeneralDAO.unused_id("attractions"), 
         //         attractionName, 
         //         typeAttraction.valueOf(attractionType),
@@ -116,6 +116,6 @@ public class AttractionController {
     @DELETE
     @Path("/{id}")
     public void delete(@PathParam("id") int id) {
-        GeneralDAO.delete(AttractionClass.getTblName(), id);
+        GeneralDAO.delete(Attraction.getTblName(), id);
     }
 }

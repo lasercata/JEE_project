@@ -10,8 +10,8 @@ import java.util.List;
 import utils.DBManager;
 import utils.GeneralDAO;
 
-public class AttractionDAOImpl implements GeneralDAO<AttractionClass> {
-    private AttractionClass readQueryResult(ResultSet rs) throws SQLException {
+public class AttractionDAOImpl implements GeneralDAO<Attraction> {
+    private Attraction readQueryResult(ResultSet rs) throws SQLException {
         int id1 = rs.getInt("id");
         String name = rs.getString("name");
         typeAttraction type = typeAttraction.valueOf(rs.getString("type"));
@@ -31,22 +31,22 @@ public class AttractionDAOImpl implements GeneralDAO<AttractionClass> {
         }
 
         //TODO: convert to Schedule here, and change the constructor
-        AttractionClass result = new AttractionClass(id1,name,type,sizeAlone,sizeWithAdult,openingHours,closingHours);
+        Attraction result = new Attraction(id1,name,type,sizeAlone,sizeWithAdult,openingHours,closingHours);
         return result;
     }
 
     @Override
-    public ArrayList<AttractionClass> getAll() {
+    public ArrayList<Attraction> getAll() {
         Connection connexion = DBManager.getInstance().getConnection();
 
-        ArrayList<AttractionClass> allList = new ArrayList<>();
+        ArrayList<Attraction> allList = new ArrayList<>();
 
         try {
             Statement statement = connexion.createStatement();
-            ResultSet rs = statement.executeQuery("select " + AttractionClass.sqlFields() + " from " + AttractionClass.getTblName() + ";");
+            ResultSet rs = statement.executeQuery("select " + Attraction.sqlFields() + " from " + Attraction.getTblName() + ";");
 
             while(rs.next()) {
-                AttractionClass new_attraction = this.readQueryResult(rs);
+                Attraction new_attraction = this.readQueryResult(rs);
                 allList.add(new_attraction);
             }
         }
@@ -61,12 +61,12 @@ public class AttractionDAOImpl implements GeneralDAO<AttractionClass> {
     }
 
     @Override
-    public AttractionClass getById(int id) {
+    public Attraction getById(int id) {
         Connection connexion = DBManager.getInstance().getConnection();
 
         try {
             Statement statement = connexion.createStatement();
-            ResultSet rs = statement.executeQuery("select "+ AttractionClass.sqlFields() + " from attractions where id = " + id + ";");
+            ResultSet rs = statement.executeQuery("select "+ Attraction.sqlFields() + " from attractions where id = " + id + ";");
 
             while(rs.next()) {
                 return this.readQueryResult(rs);
@@ -82,12 +82,12 @@ public class AttractionDAOImpl implements GeneralDAO<AttractionClass> {
     }
 
     @Override
-    public void add(AttractionClass new_attraction) {
+    public void add(Attraction new_attraction) {
         Connection connexion = DBManager.getInstance().getConnection();
 
         try {
             Statement statement = connexion.createStatement();
-            statement.executeUpdate("insert into attractions (" + AttractionClass.sqlFields() + ") values (" +  new_attraction.toSQL() + ");");
+            statement.executeUpdate("insert into attractions (" + Attraction.sqlFields() + ") values (" +  new_attraction.toSQL() + ");");
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -98,7 +98,7 @@ public class AttractionDAOImpl implements GeneralDAO<AttractionClass> {
     }
 
     @Override
-    public void edit(AttractionClass attraction) {
+    public void edit(Attraction attraction) {
         Connection connexion = DBManager.getInstance().getConnection();
         try {
             Statement statement = connexion.createStatement();
