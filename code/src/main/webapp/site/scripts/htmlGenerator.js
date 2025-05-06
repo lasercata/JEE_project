@@ -128,7 +128,6 @@ class HtmlGenerator {
     for (const key in this.headers) {
       const td = document.createElement("td");
       const value = rowData[key];
-      console.log(key, rowData, rowData.key, value);
       td.textContent = Array.isArray(value) ? value.join(", ") : value ?? "";
       tr.appendChild(td);
     }
