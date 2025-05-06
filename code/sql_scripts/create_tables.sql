@@ -52,12 +52,14 @@ CREATE TABLE IF NOT EXISTS restaurants (
 
 call print("=== Creating shows table ...");
 CREATE TABLE IF NOT EXISTS shows (
-    id INT PRIMARY KEY,
+    id INT,
     titre VARCHAR(100),
     jour VARCHAR(20),
     heureDebut TIME,
-    duree INT,
-    lieu VARCHAR(100)
+    heureFin TIME,
+    lieu VARCHAR(100),
+
+    PRIMARY KEY (id, heureDebut)
 );
 
 call print("=== Creating characters table ...");
@@ -67,7 +69,7 @@ CREATE TABLE IF NOT EXISTS characters (
 );
 
 call print("=== Creating starring table ...");
-CREATE TABLE IF NOT EXISTS starring(
+CREATE TABLE IF NOT EXISTS starring (
     idShow INT,
     idCharacter INT,
     PRIMARY KEY (idShow, idCharacter),
