@@ -40,7 +40,7 @@ function load(url) {
   fetch(url)
     // .then((response) => response.json())
     // .then((response) => process(response))
-    .then((response) => new HtmlGenerator("Testing", { headers, data }))
+    .then((response) => new HtmlGenerator("Restaurants", headers, data))
     .catch((error) => alert("Erreur : " + error));
 }
 
@@ -48,7 +48,13 @@ function load(url) {
  * javascript class to generate html pages.
  */
 class HtmlGenerator {
-  constructor(title, { headers, data }) {
+  /**
+   * HtmlGenerator class constructor.
+   * @param {string} title - type of activity : will be put in the header and is used to choose the right input.
+   * @param {JSON} headers - JSON containing the DB columns names (fetch it with a SQL query).
+   * @param {Array} data - array containing every object we fetched from the DB (as JSONs).
+   */
+  constructor(title, headers, data) {
     this.title = title;
     this.headers = headers;
     this.data = data;
@@ -208,8 +214,9 @@ class HtmlGenerator {
 
   /**
    * Adds the inputs for the data to add to the DB for attractions.
+   * @param {HTMLElement} parentElement - The element to which the content will be appended.
    */
-  addInputsAttractions(ul) {
+  addInputsAttractions(parentElement) {
     var name_li = document.createElement("li");
     var name_label = document.createElement("label");
     name_label.textContent = "Nom :";
@@ -250,17 +257,18 @@ class HtmlGenerator {
     schedule_li.appendChild(schedule_label);
     this.appendSchedule(schedule_li);
 
-    ul.appendChild(name_li);
-    ul.appendChild(type_li);
-    ul.appendChild(min_height_alone_li);
-    ul.appendChild(min_height_li);
-    ul.appendChild(schedule_li);
+    parentElement.appendChild(name_li);
+    parentElement.appendChild(type_li);
+    parentElement.appendChild(min_height_alone_li);
+    parentElement.appendChild(min_height_li);
+    parentElement.appendChild(schedule_li);
   }
 
   /**
    * Adds the inputs for the data to add to the DB for restaurants.
+   * @param {HTMLElement} parentElement - The element to which the content will be appended.
    */
-  addInputsRestaurants(ul) {
+  addInputsRestaurants(parentElement) {
     var name_li = document.createElement("li");
     var name_label = document.createElement("label");
     name_label.textContent = "Nom :";
@@ -303,16 +311,17 @@ class HtmlGenerator {
     nb_seats_li.appendChild(nb_seats_label);
     nb_seats_li.appendChild(nb_seats_input);
 
-    ul.appendChild(name_li);
-    ul.appendChild(cuisine_li);
-    ul.appendChild(schedule_li);
-    ul.appendChild(nb_seats_li);
+    parentElement.appendChild(name_li);
+    parentElement.appendChild(cuisine_li);
+    parentElement.appendChild(schedule_li);
+    parentElement.appendChild(nb_seats_li);
   }
 
   /**
    * Adds the inputs for the data to add to the DB for shows.
+   * @param {HTMLElement} parentElement - The element to which the content will be appended.
    */
-  addInputsShows(ul) {
+  addInputsShows(parentElement) {
     var name_li = document.createElement("li");
     var name_label = document.createElement("label");
     name_label.textContent = "Nom :";
@@ -320,9 +329,159 @@ class HtmlGenerator {
     name_li.appendChild(name_label);
     name_li.appendChild(name_input);
 
+    const week = [
+      "Lundi",
+      "Mardi",
+      "Mercredi",
+      "Jeudi",
+      "Vendredi",
+      "Samedi",
+      "Dimanche",
+    ];
     var time_li = document.createElement("li");
+    var day_label = document.createElement("label");
+    day_label.textContent = "Jour :";
+    time_li.appendChild(day_label);
+    this.appendSelect(time_li, week);
+    var hour_label = document.createElement("label");
+    hour_label.textContent = "Heure :";
+    var hour_input = document.createElement("input");
+    hour_input.type = "time";
+    time_li.appendChild(hour_label);
+    time_li.appendChild(hour_input);
 
-    ul.appendChild(name_li);
+    const showLocations = [
+      "Jardin Enchanté",
+      "Château Mystérieux",
+      "Aquarium Géant",
+      "Théâtre Magique",
+      "Vallée des Dragons",
+      "Arène Intergalactique",
+    ];
+    var location_li = document.createElement("li");
+    var location_label = document.createElement("label");
+    location_label.textContent = "Lieu :";
+    location_li.appendChild(location_label);
+    this.appendSelect(location_li, showLocations);
+
+    const characters = [
+      "Sherlock Holmes",
+      "Gandalf",
+      "Darth Vader",
+      "Harry Potter",
+      "Arya Stark",
+      "Spock",
+      "Batman",
+      "Homer Simpson",
+      "Lara Croft",
+      "The Joker",
+      "Mario",
+      "Legolas",
+      "Yoda",
+      "Kratos",
+      "Spider-Man",
+    ];
+
+    const characters_li = document.createElement("li");
+
+    const characters_label = document.createElement("label");
+    characters_label.textContent = "Personnages :";
+    characters_li.appendChild(characters_label);
+
+    // Container for checkboxes
+    const checkboxContainer = document.createElement("div");
+
+    characters.forEach((character) => {
+      const checkboxWrapper = document.createElement("div");
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.name = "characters";
+      checkbox.value = character;
+
+      const label = document.createElement("label");
+      label.textContent = character;
+
+      checkboxWrapper.appendChild(checkbox);
+      checkboxWrapper.appendChild(label);
+      checkboxContainer.appendChild(checkboxWrapper);
+    });
+
+    characters_li.appendChild(checkboxContainer);
+
+    parentElement.appendChild(name_li);
+    parentElement.appendChild(time_li);
+    parentElement.appendChild(location_li);
+    parentElement.appendChild(characters_li);
+  }
+
+  /**
+   * Fetches the content of the form input.
+   * @param {HTMLElement} container
+   * @returns the fetched data in json format.
+   */
+  collectFormData(container) {
+    const data = {};
+    if (this.title === "Attractions") {
+      data.nom = container.querySelector("li:nth-child(1) input").value;
+      data.type = container.querySelector("li:nth-child(2) select").value;
+      data.minHauteurSeul = parseFloat(
+        container.querySelector("li:nth-child(3) input").value
+      );
+      data.minHauteurAccompagne = parseFloat(
+        container.querySelector("li:nth-child(4) input").value
+      );
+      data.horaires = this.collectSchedule(
+        container.querySelector("li:nth-child(5)")
+      );
+    } else if (this.title === "Restaurants") {
+      data.nom = container.querySelector("li:nth-child(1) input").value;
+      data.cuisine = container.querySelector("li:nth-child(2) select").value;
+      data.horaires = this.collectSchedule(
+        container.querySelector("li:nth-child(3)")
+      );
+      data.nombrePlaces = parseInt(
+        container.querySelector("li:nth-child(4) input").value
+      );
+    } else {
+      data.nom = container.querySelector("li:nth-child(1) input").value;
+      data.jour = container.querySelector("li:nth-child(2) select").value;
+      data.heure = container.querySelector(
+        "li:nth-child(2) input[type='time']"
+      ).value;
+      data.lieu = container.querySelector("li:nth-child(3) select").value;
+      data.personnages = Array.from(
+        container.querySelectorAll(
+          "li:nth-child(4) input[type='checkbox']:checked"
+        )
+      ).map((cb) => cb.value);
+    }
+
+    return data;
+  }
+
+  /**
+   * Fetches the content of the schedule input.
+   * @param {HTMLElement} container - schedule inputs container.
+   * @returns the schedule fetched data in json format.
+   */
+  collectSchedule(container) {
+    const days = [
+      "monday",
+      "tuesday",
+      "wednesday",
+      "thursday",
+      "friday",
+      "saturday",
+      "sunday",
+    ];
+    const schedule = {};
+    days.forEach((day) => {
+      const open = container.querySelector(`#${day}_open`).value;
+      const close = container.querySelector(`#${day}_close`).value;
+      schedule[day] = { open, close };
+    });
+    return schedule;
   }
 
   /**
@@ -330,9 +489,34 @@ class HtmlGenerator {
    */
   addInputs() {
     const ul = document.createElement("ul");
-    // this.addInputsAttractions(ul);
-    this.addInputsRestaurants(ul);
+    if (this.title == "Attractions") {
+      this.addInputsAttractions(ul);
+    } else if (this.title == "Restaurants") {
+      this.addInputsRestaurants(ul);
+    } else {
+      this.addInputsShows(ul);
+    }
+
+    // Add button
+    const button = document.createElement("button");
+    button.textContent = "Ajouter";
+    button.addEventListener("click", () => {
+      const data = this.collectFormData(ul);
+      console.log(JSON.stringify(data, null, 2)); // for now we print the data...
+
+      // Reset the inputs
+      const inputs = ul.querySelectorAll("input, select");
+      inputs.forEach((input) => {
+        if (input.type === "checkbox" || input.type === "radio") {
+          input.checked = false;
+        } else {
+          input.value = "";
+        }
+      });
+    });
+
     document.body.appendChild(ul);
+    document.body.appendChild(button);
   }
 
   /**
