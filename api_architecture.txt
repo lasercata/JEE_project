@@ -1,0 +1,19 @@
+Four end-points :
+    /api/attractions
+    /api/restaurants
+    /api/shows
+    /api/characters
+
+Attractions :
+    GET /api/attractions         - Retreives a list of all attractions
+    GET /api/attractions/{id}    - Retreives data for the attraction of id `id`
+    POST /api/attractions        - Creates a new attraction
+    PUT /api/attractions/{id}    - Updates an existing attraction
+    DELETE /api/attractions/{id} - Deletes an existing attraction
+
+Restaurants :
+    GET /api/restaurants         - Retreives a list of all restaurants
+    GET /api/restaurants/{id}    - Retreives data for the restaurant of id `id`
+    POST /api/restaurants        - Creates a new restaurant
+    PUT /api/restaurants/{id}    - Updates an existing restaurant
+    DELETE /api/restaurants/{id} - Deletes an existing restaurant

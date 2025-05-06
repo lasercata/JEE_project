@@ -46,7 +46,7 @@ public interface GeneralDAO<T> {
 
         try {
             Statement statement = connexion.createStatement();
-            statement.executeQuery("delete from "+ table +" where id = "+ id+";");
+            statement.executeUpdate("delete from "+ table +" where id = "+ id+";");
         }
         catch (SQLException e) {
             e.printStackTrace();
