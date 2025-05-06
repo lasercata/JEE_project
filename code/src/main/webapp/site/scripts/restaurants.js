@@ -37,7 +37,3 @@ function process(attractions) {
     table.appendChild(tr);
   }
 }
-
-function searchByTitle() {
-  //TODO
-}
