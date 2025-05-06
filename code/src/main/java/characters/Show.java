@@ -12,11 +12,17 @@ public class Show {
     private String lieu;
     private ArrayList<Character> personnages;
 
+    private static int counter = 0;
+    private int id;
+
     public Show(String titre, String jour, ArrayList<EventTime> horaires, String lieu, ArrayList<Character> personnages) {
         this.titre = titre;
         this.horaires = horaires;
         this.lieu = lieu;
         this.personnages = personnages;
+
+        this.id = Show.counter;
+        Show.counter++;
     }
 
     public String getTitre() {
