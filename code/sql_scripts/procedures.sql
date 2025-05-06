@@ -12,6 +12,7 @@ DELIMITER ;
 
 
 --================ TRIGGERs
+DELIMITER //
 CREATE TRIGGER trigger_check_show_conflict
 BEFORE INSERT ON shows
 FOR EACH ROW
@@ -19,7 +20,7 @@ BEGIN
     DECLARE conflict_count INT;
     SELECT COUNT(*) INTO conflict_count
     FROM shows
-    WHERE lieu = NEW.lieu
+    WHERE lieu = NEW.lieu --TODO: there is an error here (what is NEW ?)
       
       AND jour = NEW.jour
       AND (
@@ -30,9 +31,11 @@ BEGIN
     IF conflict_count > 0 THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Conflit : un show est déjà prévu à ce lieu et cet horaire.';
     END IF;
-END;
+END //
+DELIMITER ;
 
 
+DELIMITER //
 CREATE TRIGGER trigger_check_character_name_unique
 BEFORE INSERT ON characters
 FOR EACH ROW
@@ -45,8 +48,10 @@ BEGIN
     IF name_count > 0 THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Un personnage avec ce nom existe déjà.';
     END IF;
-END;
+END //
+DELIMITER ;
 
+DELIMITER //
 CREATE TRIGGER trigger_check_character_availability
 BEFORE INSERT ON starring
 FOR EACH ROW
@@ -80,4 +85,5 @@ BEGIN
     IF conflict_count > 0 THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Le personnage est déjà occupé à cet horaire.';
     END IF;
-END;
+END //
+DELIMITER ;
