@@ -1,9 +1,6 @@
 # JEE project
 
 ## Setup
-
-TODO
-
 ### Database connection
 #### Config file for the java part
 Add a file `config.properties` in the folder `code/src/main/java/` with the following content :
@@ -29,6 +26,17 @@ To run a script in the DB, you can use `run_sql_script.sh`:
 where you replace `[scriptname]` with the name of your script.
 
 It is needed to be in the root folder of the project to run those scripts and to have created correctly the `config.properties` file, because the bash scripts read it.
+
+
+To create and populate the database, you can use the script `run_all.sql` :
+```
+./code/run_sql_script.sh code/sql_scripts/run_all.sql
+```
+
+#### Trigger tests
+To test the triggers, we have implemented some sql scripts, in the folder `code/sql_scripts/tests`.
+
+To test the corresponding feature, run the script with `code/run_sql_script.sh`. It should give the error explained in comment in the corresponding file.
 
 ### Setting up a Tomcat Apache server for eclipse
 
