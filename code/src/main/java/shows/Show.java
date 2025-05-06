@@ -10,7 +10,6 @@ public class Show {
     private int id;
     private String titre;
     private EventTime schedule; 
-    private int duree; // in minutes
     private String lieu;
     private ArrayList<Character> personnages;
 
@@ -20,8 +19,20 @@ public class Show {
         this.schedule = schedule;
         this.lieu = lieu;
         this.personnages = personnages;
+
+        // Also add the characters to the show
+        for (Character c : personnages) {
+            c.addCharacterToEvent(this);
+        }
     }
 
+    public int getId() {
+        return this.id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getTitre() {
         return this.titre;
     }
@@ -94,5 +105,19 @@ public class Show {
 
     public void addCharacter(Character personnage) {
         this.personnages.add(personnage);
+    }
+
+    /**
+     * Checks if the character `charact` is in the current show.
+     *
+     * Only checks the id.
+     */
+    public boolean hasCharacter(Character charact) {
+        for (Character c : this.personnages) {
+            if (c.getId() == charact.getId())
+                return true;
+        }
+        
+        return false;
     }
 }

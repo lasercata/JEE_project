@@ -9,12 +9,24 @@ public class Character {
     private String name;
     private ArrayList<EventTime> schedule;
 
+    public Character(int id, String name) {
+        this.id = id;
+        this.name = name;
+        this.schedule = new ArrayList<EventTime>();
+    }
     public Character(int id, String name, ArrayList<EventTime> schedule) {
         this.id = id;
         this.name = name;
         this.schedule = schedule;
     }
 
+    public int getId() {
+        return this.id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getName() {
         return this.name;
     }
@@ -61,6 +73,10 @@ public class Character {
     // =================== Other methods ====================
 
     public void addCharacterToEvent(Show show) {
+        // If the character is already in, do not do anything.
+        if (show.hasCharacter(this))
+            return;
+
         EventTime showTime = show.getSchedule();
 
         // Checking if the character is available

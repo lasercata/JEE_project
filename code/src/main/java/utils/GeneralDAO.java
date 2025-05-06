@@ -31,7 +31,7 @@ public interface GeneralDAO<T> {
     public void add(T new_item);
 
     /**
-     * TODO: describe how it works ?
+     * Changes the values of the existing element (selecting by id) for the new ones provided
      */
     public void edit(T item);
 
