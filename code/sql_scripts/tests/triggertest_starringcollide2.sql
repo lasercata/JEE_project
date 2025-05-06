@@ -4,15 +4,15 @@ CASE 3 : Show 1 starts before Show 2, but Show 2 starts less than 30 minutes aft
 */
 
 insert into show (id, titre, jour, heureDebut, heureFin, lieu) values
-(0, 'Show 1', 'Mardi', '10:00:00', '13:00:00', 'Vallée des Dragons')
+(0, 'Show 1', 'Mardi', '10:00:00', '13:00:00', 'Vallée des Dragons');
 insert into show (id, titre, jour, heureDebut, heureFin, lieu) values
-(1, 'Show 2', 'Mardi', '13:20:00', '15:00:00', 'Arène Intergalactique')
+(1, 'Show 2', 'Mardi', '13:20:00', '15:00:00', 'Arène Intergalactique');
 
-insert into characters (id, name) values (0, "A Very Popular Guy")
+insert into characters (id, name) values (0, "A Very Popular Guy");
 
 insert into starring (idShow, idCharacter) values
-(0, 0)
+(0, 0);
 
 -- ERROR HERE :
 insert into starring (idShow, idCharacter) values
-(1, 0)
+(1, 0);

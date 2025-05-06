@@ -1,18 +1,6 @@
-/*
-This procedure allows to print text.
- */
-DROP PROCEDURE IF EXISTS print;
 DROP TRIGGER IF EXISTS trigger_check_show_conflict;
 DROP TRIGGER IF EXISTS trigger_check_character_name_unique;
 DROP TRIGGER IF EXISTS trigger_check_character_availability;
-
-DELIMITER //
-CREATE PROCEDURE print(in txt TEXT)
-BEGIN
-    SELECT txt as '';
-END //
-DELIMITER ;
-
 
 DELIMITER //
 
@@ -48,7 +36,7 @@ FOR EACH ROW
 BEGIN
     DECLARE name_count INT;
 
-    SELECT COUNT(*) INTO name_count
+    SELECT COUNT(id) INTO name_count
     FROM characters
     WHERE name = NEW.name;
 

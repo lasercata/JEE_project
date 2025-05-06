@@ -4,8 +4,8 @@ CASE 3 : Show 1 and Show 2 at the same time
 */
 
 insert into show (id, titre, jour, heureDebut, heureFin, lieu) values
-(0, 'Show 1', 'Mardi', '10:00:00', '13:00:00', 'Vallée des Dragons')
+(0, 'Show 1', 'Mardi', '10:00:00', '13:00:00', 'Vallée des Dragons');
 
 -- ERROR HERE :
 insert into show (id, titre, jour, heureDebut, heureFin, lieu) values
-(1, 'Show 2', 'Mardi', '10:00:00', '13:00:00', 'Vallée des Dragons')
+(1, 'Show 2', 'Mardi', '10:00:00', '13:00:00', 'Vallée des Dragons');

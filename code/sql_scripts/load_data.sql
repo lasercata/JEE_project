@@ -45,7 +45,7 @@ insert into attractions
         '08:00:00', '18:00:00',
         '08:00:00', '18:00:00',
         '08:00:00', '18:00:00'
-    ),
+    );
 
 insert into restaurants
     (id, name, cuisine, nbOfSeats, moOP, moCL, tuOP, tuCL, weOP, weCL, thOP, thCL, frOP, frCL, saOP, saCL, suOP, suCL)
@@ -82,7 +82,7 @@ insert into restaurants
         '08:00:00', '18:00:00',
         '08:00:00', '18:00:00',
         '08:00:00', '18:00:00'
-    ),
+    );
 
 insert into characters
     (id, name)
@@ -96,7 +96,7 @@ insert into characters
     (6, "Batman"),
     (7, "Homer Simpson"),
     (8, "Lara Croft"),
-    (9, "The Joker"),   
+    (9, "The Joker"),
     (10, "Mario"),
     (11, "Legolas"),
     (12, "Yoda"),
