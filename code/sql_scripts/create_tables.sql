@@ -1,3 +1,10 @@
+DROP TABLE IF EXISTS attractions;
+DROP TABLE IF EXISTS restaurants;
+DROP TABLE IF EXISTS starring;
+DROP TABLE IF EXISTS shows;
+DROP TABLE IF EXISTS characters;
+
+
 call print("=== Creating attractions table ...");
 CREATE TABLE IF NOT EXISTS attractions (
     id INT PRIMARY KEY,
@@ -47,12 +54,12 @@ call print("=== Creating shows table ...");
 CREATE TABLE IF NOT EXISTS shows (
     id INT,
     titre VARCHAR(100),
-    jour VARCHAR(100),
+    jour VARCHAR(20),
     heureDebut TIME,
     heureFin TIME,
     lieu VARCHAR(100),
 
-    PRIMARY KEY (id, heureDebut)
+    PRIMARY KEY (id, jour, heureDebut)
 );
 
 call print("=== Creating characters table ...");
