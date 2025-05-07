@@ -284,6 +284,7 @@ class HtmlGenerator {
     var name_label = document.createElement("label");
     name_label.textContent = "Nom :";
     var name_input = document.createElement("input");
+    name_input.id = "attraction_name";
     name_li.appendChild(name_label);
     name_li.appendChild(name_input);
 
@@ -292,7 +293,7 @@ class HtmlGenerator {
     var type_label = document.createElement("label");
     type_label.textContent = "Type :";
     type_li.appendChild(type_label);
-    this.appendSelect(type_li, options);
+    this.appendSelect(type_li, options, "attraction_type");
 
     var min_height_alone_li = document.createElement("li");
     var min_height_alone_label = document.createElement("label");
@@ -301,6 +302,7 @@ class HtmlGenerator {
     min_height_alone_input.type = "number";
     min_height_alone_input.step = 0.1;
     min_height_alone_input.min = 0;
+    min_height_alone_input.id = "size_alone";
     min_height_alone_li.appendChild(min_height_alone_label);
     min_height_alone_li.appendChild(min_height_alone_input);
 
@@ -311,6 +313,7 @@ class HtmlGenerator {
     min_height_input.type = "number";
     min_height_input.step = 0.1;
     min_height_input.min = 0;
+    min_height_input.id = "size_with_adult";
     min_height_li.appendChild(min_height_label);
     min_height_li.appendChild(min_height_input);
 
