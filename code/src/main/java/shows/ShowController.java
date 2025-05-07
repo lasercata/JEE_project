@@ -49,11 +49,11 @@ public class ShowController {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getShowById(@PathParam("id") int id) {
-        Show attraction = showDAO.getById(id);
+        Show show = showDAO.getById(id);
 
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
-        String json = gson.toJson(attraction);
+        String json = gson.toJson(show);
         return json;
     }
 
@@ -70,6 +70,9 @@ public class ShowController {
         @FormParam("location") String location,
         @FormParam("characters") List<String> characters
     ) {
+        System.out.println("=======================================");
+        System.out.println(title + " " + day + " " + " " + begTime);
+        System.out.println("=======================================");
         // Create the list of characters
         ArrayList<Character> charactersList = new ArrayList<>();
         for (String charact : characters) {
