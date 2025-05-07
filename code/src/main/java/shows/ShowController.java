@@ -49,11 +49,11 @@ public class ShowController {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getShowById(@PathParam("id") int id) {
-        Show attraction = showDAO.getById(id);
+        Show show = showDAO.getById(id);
 
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
-        String json = gson.toJson(attraction);
+        String json = gson.toJson(show);
         return json;
     }
 
