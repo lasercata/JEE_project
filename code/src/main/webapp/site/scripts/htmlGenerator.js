@@ -16,23 +16,37 @@ const data = [
 ];
 
 function loadAttractions() {
-  return new HtmlGenerator("Attractions", headers, data);
+    load("/JEE_project/api/attractions", "Attractions");
+  // return new HtmlGenerator("Attractions", headers, data);
 }
 
 function loadRestaurants() {
-  return new HtmlGenerator("Restaurants", headers, data);
+    load("/JEE_project/api/restaurants", "Restaurants");
+  // return new HtmlGenerator("Restaurants", headers, data);
 }
 
 function loadShows() {
-  return new HtmlGenerator("Shows", headers, data);
+    load("/JEE_project/api/shows", "Shows");
+  // return new HtmlGenerator("Shows", headers, data);
 }
 
-function load(url) {
-  fetch(url)
-    // .then((response) => response.json())
-    // .then((response) => process(response))
-    .then((response) => new HtmlGenerator("Restaurants", headers, data))
-    .catch((error) => alert("Erreur : " + error));
+/**
+ * Creates a new HtmlGenerator that create the right thing.
+ *
+ * @param {string} url - the url of the endpoint to get all data
+ * @param {string} title - the title of the page
+ */
+function load(url, title) {
+    fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+            // Get the header json
+            let k_arr = Object.keys(data[0]); // Gets the keys in an array
+            let k_json = k_arr.reduce((acc, value) => {acc[value] = value; return acc;}, {}); // Transform ["a", "b"] into {a: "a", b: "b"}.
+
+            new HtmlGenerator(title, k_json, data);
+        })
+        .catch((error) => alert("Erreur : " + error));
 }
 
 /**
