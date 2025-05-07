@@ -17,7 +17,7 @@ public class Hour {
     public Hour(String hour) {
         String[] hourParts = hour.split(":");
         this.h = Integer.parseInt(hourParts[0]);
-        this.h = Integer.parseInt(hourParts[1]);
+        this.m = Integer.parseInt(hourParts[1]);
     }
 
     public int getH() {

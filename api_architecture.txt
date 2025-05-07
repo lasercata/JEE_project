@@ -1,8 +1,7 @@
-Four end-points :
+Three end-points :
     /api/attractions
     /api/restaurants
     /api/shows
-    /api/characters
 
 Attractions :
     GET /api/attractions         - Retreives a list of all attractions

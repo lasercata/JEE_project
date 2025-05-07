@@ -70,6 +70,9 @@ public class ShowController {
         @FormParam("location") String location,
         @FormParam("characters") List<String> characters
     ) {
+        System.out.println("=======================================");
+        System.out.println(title + " " + day + " " + " " + begTime);
+        System.out.println("=======================================");
         // Create the list of characters
         ArrayList<Character> charactersList = new ArrayList<>();
         for (String charact : characters) {
