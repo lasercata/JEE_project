@@ -522,18 +522,11 @@ class HtmlGenerator {
     } else {
       data.nom = container.querySelector("#title").value;
       data.jour = container.querySelector("#day").value;
-
-      const timeInputs = container.querySelectorAll(
-        "li:nth-child(2) input[type='time']"
-      );
-      data.heureDebut = timeInputs[0]?.value || "";
-      data.heureFin = timeInputs[1]?.value || "";
-
+      data.heureDebut = container.querySelector("#beg_time").value;
+      data.heureFin = container.querySelector("#end_time").value;
       data.lieu = container.querySelector("#location").value;
       data.personnages = Array.from(
-        container.querySelectorAll(
-          "li:nth-child(4) input[type='checkbox']:checked"
-        )
+        container.querySelectorAll("#characters:checked")
       ).map((cb) => cb.value);
     }
 
