@@ -47,11 +47,12 @@ insert into attractions
         '08:00:00', '18:00:00'
     );
 
+call print("=== Inserting in restaurants ...");
 insert into restaurants
     (id, name, cuisine, nbOfSeats, moOP, moCL, tuOP, tuCL, weOP, weCL, thOP, thCL, frOP, frCL, saOP, saCL, suOP, suCL)
     values
     (
-        0, "La Tour de Pizza", "Italienne",
+        0, "La Tour de Pizza", "ITALIAN",
         100,
         '08:00:00', '18:00:00',
         '08:00:00', '18:00:00',
@@ -62,7 +63,7 @@ insert into restaurants
         '08:00:00', '18:00:00'
     ),
     (
-        1, "Ramen ta fraise", "Japonaise",
+        1, "Ramen ta fraise", "JAPANESE",
         150,
         '08:00:00', '18:00:00',
         '08:00:00', '18:00:00',
@@ -73,7 +74,7 @@ insert into restaurants
         '08:00:00', '18:00:00'
     ),
     (
-        2, "A la baguette", "Française",
+        2, "A la baguette", "FRENCH",
         50,
         '08:00:00', '18:00:00',
         '08:00:00', '18:00:00',
@@ -84,6 +85,7 @@ insert into restaurants
         '08:00:00', '18:00:00'
     );
 
+call print("=== Inserting in characters ...");
 insert into characters
     (id, name)
     values
@@ -103,7 +105,7 @@ insert into characters
     (13, "Kratos"),
     (14, "Spider-Man");
 
-
+call print("=== Inserting in shows ...");
 insert into shows
     (id, titre, jour, heureDebut, heureFin, lieu)
     values
@@ -128,6 +130,7 @@ insert into shows
         'Arène Intergalactique'
     );
 
+call print("=== Inserting in starring ...");
 insert into starring
     (idShow, idCharacter)
     values

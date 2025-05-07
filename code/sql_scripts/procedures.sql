@@ -1,7 +1,9 @@
+call print("=== Dropping existing triggers ...");
 DROP TRIGGER IF EXISTS trigger_check_show_conflict;
 DROP TRIGGER IF EXISTS trigger_check_character_name_unique;
 DROP TRIGGER IF EXISTS trigger_check_character_availability;
 
+call print("=== Creating triggers ...");
 DELIMITER //
 
 CREATE TRIGGER trigger_check_show_conflict
