@@ -1,5 +1,8 @@
 # JEE project
 
+Group name: `Tonnerre de Zeus`
+lastest branch: `main`
+
 ## Setup
 ### Database connection
 #### Config file for the java part
