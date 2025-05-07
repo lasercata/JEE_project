@@ -16,17 +16,17 @@ const data = [
 ];
 
 function loadAttractions() {
-    load("/JEE_project/api/attractions", "Attractions");
+  load("/JEE_project/api/attractions", "Attractions");
   // return new HtmlGenerator("Attractions", headers, data);
 }
 
 function loadRestaurants() {
-    load("/JEE_project/api/restaurants", "Restaurants");
+  load("/JEE_project/api/restaurants", "Restaurants");
   // return new HtmlGenerator("Restaurants", headers, data);
 }
 
 function loadShows() {
-    load("/JEE_project/api/shows", "Shows");
+  load("/JEE_project/api/shows", "Shows");
   // return new HtmlGenerator("Shows", headers, data);
 }
 
@@ -37,16 +37,19 @@ function loadShows() {
  * @param {string} title - the title of the page
  */
 function load(url, title) {
-    fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-            // Get the header json
-            let k_arr = Object.keys(data[0]); // Gets the keys in an array
-            let k_json = k_arr.reduce((acc, value) => {acc[value] = value; return acc;}, {}); // Transform ["a", "b"] into {a: "a", b: "b"}.
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      // Get the header json
+      let k_arr = Object.keys(data[0]); // Gets the keys in an array
+      let k_json = k_arr.reduce((acc, value) => {
+        acc[value] = value;
+        return acc;
+      }, {}); // Transform ["a", "b"] into {a: "a", b: "b"}.
 
-            new HtmlGenerator(title, k_json, data);
-        })
-        .catch((error) => alert("Erreur : " + error));
+      new HtmlGenerator(title, k_json, data);
+    })
+    .catch((error) => alert("Erreur : " + error));
 }
 
 /**
@@ -123,10 +126,10 @@ class HtmlGenerator {
       return;
     }
 
-    // Ajouter rowData à la structure interne de données
+    // Adds the new row to the data field
     this.data.push(rowData);
 
-    // Créer la ligne de tableau
+    // Create the row element
     const tr = document.createElement("tr");
 
     const cellRefs = [];
@@ -139,14 +142,15 @@ class HtmlGenerator {
       cellRefs.push(td);
     }
 
-    // Boutons d'action
+    // Action button
     const actionsTd = document.createElement("td");
 
     const editBtn = document.createElement("button");
     editBtn.textContent = "✏️";
 
     const setEditHandler = () => {
-      // Remplacer chaque cellule par un input
+      // Replaces each cell with an input
+      // TODO : change the string input by the correct type
       cellRefs.forEach((td, i) => {
         const key = Object.keys(this.headers)[i];
         const input = document.createElement("input");
