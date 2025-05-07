@@ -501,29 +501,27 @@ class HtmlGenerator {
   collectFormData(container) {
     const data = {};
     if (this.title === "Attractions") {
-      data.nom = container.querySelector("li:nth-child(1) input").value;
-      data.type = container.querySelector("li:nth-child(2) select").value;
+      data.nom = container.querySelector("#attraction_name").value;
+      data.type = container.querySelector("#attraction_type").value;
       data.minHauteurSeul = parseFloat(
-        container.querySelector("li:nth-child(3) input").value
+        container.querySelector("#size_alone").value
       );
       data.minHauteurAccompagne = parseFloat(
-        container.querySelector("li:nth-child(4) input").value
+        container.querySelector("#size_with_adult").value
       );
       data.horaires = this.collectSchedule(
         container.querySelector("li:nth-child(5)")
       );
     } else if (this.title === "Restaurants") {
-      data.nom = container.querySelector("li:nth-child(1) input").value;
-      data.cuisine = container.querySelector("li:nth-child(2) select").value;
+      data.nom = container.querySelector("#restaurant_name").value;
+      data.cuisine = container.querySelector("#cuisine_type").value;
       data.horaires = this.collectSchedule(
         container.querySelector("li:nth-child(3)")
       );
-      data.nombrePlaces = parseInt(
-        container.querySelector("li:nth-child(4) input").value
-      );
+      data.nombrePlaces = parseInt(container.querySelector("#nb_seats").value);
     } else {
-      data.nom = container.querySelector("li:nth-child(1) input").value;
-      data.jour = container.querySelector("li:nth-child(2) select").value;
+      data.nom = container.querySelector("#title").value;
+      data.jour = container.querySelector("#day").value;
 
       const timeInputs = container.querySelectorAll(
         "li:nth-child(2) input[type='time']"
@@ -531,7 +529,7 @@ class HtmlGenerator {
       data.heureDebut = timeInputs[0]?.value || "";
       data.heureFin = timeInputs[1]?.value || "";
 
-      data.lieu = container.querySelector("li:nth-child(3) select").value;
+      data.lieu = container.querySelector("#location").value;
       data.personnages = Array.from(
         container.querySelectorAll(
           "li:nth-child(4) input[type='checkbox']:checked"
