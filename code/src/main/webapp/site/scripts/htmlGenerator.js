@@ -318,6 +318,7 @@ class HtmlGenerator {
     min_height_li.appendChild(min_height_input);
 
     var schedule_li = document.createElement("li");
+    schedule_li.id = "schedule_li";
     var schedule_label = document.createElement("label");
     schedule_label.textContent = "Horaires :";
     schedule_li.appendChild(schedule_label);
@@ -363,6 +364,7 @@ class HtmlGenerator {
     this.appendSelect(cuisine_li, options, "cuisine_type");
 
     var schedule_li = document.createElement("li");
+    schedule_li.id = "schedule_li";
     var schedule_label = document.createElement("label");
     schedule_label.textContent = "Horaires :";
     schedule_li.appendChild(schedule_label);
@@ -510,13 +512,13 @@ class HtmlGenerator {
         container.querySelector("#size_with_adult").value
       );
       data.horaires = this.collectSchedule(
-        container.querySelector("li:nth-child(5)")
+        container.querySelector("#schedule_li")
       );
     } else if (this.title === "Restaurants") {
       data.nom = container.querySelector("#restaurant_name").value;
       data.cuisine = container.querySelector("#cuisine_type").value;
       data.horaires = this.collectSchedule(
-        container.querySelector("li:nth-child(3)")
+        container.querySelector("#schedule_li")
       );
       data.nombrePlaces = parseInt(container.querySelector("#nb_seats").value);
     } else {
