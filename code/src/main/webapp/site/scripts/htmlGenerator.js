@@ -256,9 +256,11 @@ class HtmlGenerator {
    * Appends select input to a given HTML element.
    * @param {HTMLElement} parentElement - The element to which the content will be appended.
    * @param {Array} options - An array containing all the options we can select.
+   * @param {string} id - the id of the select element.
    */
-  appendSelect(parentElement, options) {
+  appendSelect(parentElement, options, id) {
     var input = document.createElement("select");
+    input.id = id;
     var input_blank = document.createElement("option");
     input_blank.value = "";
     input_blank.textContent = "-- Please choose an option --";
@@ -334,6 +336,7 @@ class HtmlGenerator {
     var name_label = document.createElement("label");
     name_label.textContent = "Nom :";
     var name_input = document.createElement("input");
+    name_input.id = "restaurant_name";
     name_li.appendChild(name_label);
     name_li.appendChild(name_input);
 
@@ -354,7 +357,7 @@ class HtmlGenerator {
     var cuisine_label = document.createElement("label");
     cuisine_label.textContent = "Cuisine :";
     cuisine_li.appendChild(cuisine_label);
-    this.appendSelect(cuisine_li, options);
+    this.appendSelect(cuisine_li, options, "cuisine_type");
 
     var schedule_li = document.createElement("li");
     var schedule_label = document.createElement("label");
@@ -369,6 +372,7 @@ class HtmlGenerator {
     nb_seats_input.type = "number";
     nb_seats_input.min = 0;
     nb_seats_input.step = 1;
+    nb_seats_input.id = "nb_seats";
     nb_seats_li.appendChild(nb_seats_label);
     nb_seats_li.appendChild(nb_seats_input);
 
