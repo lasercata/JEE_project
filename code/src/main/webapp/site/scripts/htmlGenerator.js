@@ -394,6 +394,7 @@ class HtmlGenerator {
     var name_label = document.createElement("label");
     name_label.textContent = "Nom :";
     var name_input = document.createElement("input");
+    name_input.id = "title";
     name_li.appendChild(name_label);
     name_li.appendChild(name_input);
 
@@ -410,13 +411,21 @@ class HtmlGenerator {
     var day_label = document.createElement("label");
     day_label.textContent = "Jour :";
     time_li.appendChild(day_label);
-    this.appendSelect(time_li, week);
-    var hour_label = document.createElement("label");
-    hour_label.textContent = "Heure :";
-    var hour_input = document.createElement("input");
-    hour_input.type = "time";
-    time_li.appendChild(hour_label);
-    time_li.appendChild(hour_input);
+    this.appendSelect(time_li, week, "day");
+    var hour_label1 = document.createElement("label");
+    hour_label1.textContent = "Heure de début:";
+    var hour_input1 = document.createElement("input");
+    hour_input1.type = "time";
+    hour_input1.id = "beg_time";
+    var hour_label2 = document.createElement("label");
+    hour_label2.textContent = "Heure de fin:";
+    var hour_input2 = document.createElement("input");
+    hour_input2.type = "time";
+    hour_input2.id = "end_time";
+    time_li.appendChild(hour_label1);
+    time_li.appendChild(hour_input1);
+    time_li.appendChild(hour_label2);
+    time_li.appendChild(hour_input2);
 
     const showLocations = [
       "Jardin Enchanté",
@@ -430,7 +439,7 @@ class HtmlGenerator {
     var location_label = document.createElement("label");
     location_label.textContent = "Lieu :";
     location_li.appendChild(location_label);
-    this.appendSelect(location_li, showLocations);
+    this.appendSelect(location_li, showLocations, "location");
 
     const characters = [
       "Sherlock Holmes",
@@ -466,6 +475,7 @@ class HtmlGenerator {
       checkbox.type = "checkbox";
       checkbox.name = "characters";
       checkbox.value = character;
+      checkbox.id = "characters";
 
       const label = document.createElement("label");
       label.textContent = character;
@@ -514,9 +524,13 @@ class HtmlGenerator {
     } else {
       data.nom = container.querySelector("li:nth-child(1) input").value;
       data.jour = container.querySelector("li:nth-child(2) select").value;
-      data.heure = container.querySelector(
+
+      const timeInputs = container.querySelectorAll(
         "li:nth-child(2) input[type='time']"
-      ).value;
+      );
+      data.heureDebut = timeInputs[0]?.value || "";
+      data.heureFin = timeInputs[1]?.value || "";
+
       data.lieu = container.querySelector("li:nth-child(3) select").value;
       data.personnages = Array.from(
         container.querySelectorAll(
