@@ -1,4 +1,4 @@
-package attraction;
+package attractions;
 
 public enum typeAttraction {
 	rollercoaster,

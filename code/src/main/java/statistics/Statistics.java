@@ -2,8 +2,8 @@ package statistics;
 import java.util.List;
 import java.util.Map;
 
-import characters.Show;
-import characters.Character;
+import shows.Show;
+import shows.Character;
 import time.EventTime;
 
 
@@ -33,12 +33,14 @@ public class Statistics {
                 int dureeI = 0;
                 int dureeJ = 0;
 
-                for (EventTime evt : allShows.get(i).getHoraires()) { // somme la duree du show a la position i
-                    dureeI += evt.getDureeMinutes();
-                }
-                for (EventTime evt : allShows.get(j).getHoraires()) { // somme la duree du show a la position j
-                    dureeJ += evt.getDureeMinutes();
-                }
+                dureeI += allShows.get(i).getSchedule().getDureeMinutes();
+                dureeJ += allShows.get(j).getSchedule().getDureeMinutes();
+                // for (EventTime evt : allShows.get(i).getSchedule()) { // somme la duree du show a la position i
+                //     dureeI += evt.getDureeMinutes();
+                // }
+                // for (EventTime evt : allShows.get(j).getHoraires()) { // somme la duree du show a la position j
+                //     dureeJ += evt.getDureeMinutes();
+                // }
 
                 if (dureeJ < dureeI) {
                     Show temp = allShows.get(i);
@@ -54,9 +56,10 @@ public class Statistics {
         for (int i = 0; i < allShows.size(); i++) {
             Show show = allShows.get(i);
             int totalDuree = 0;
-            for (EventTime et : show.getHoraires()) {
-                totalDuree += et.getDureeMinutes();
-            }
+            totalDuree += show.getSchedule().getDureeMinutes();
+            // for (EventTime et : show.getHoraires()) {
+            //     totalDuree += et.getDureeMinutes();
+            // }
             System.out.println("- " + show.getTitre() + " : " + totalDuree + " minutes");
         }
     }
