@@ -13,7 +13,6 @@ public class Attraction {
     private double sizeWithAdult;
     private Schedule schedule;
 
-    //TODO: remove id from the constructor
     public Attraction(int id, String name, typeAttraction type, double sizeAlone, double sizeWithAdult, ArrayList<String> openingHours, ArrayList<String> closingHours){
         this.id = id;
         this.name = name;

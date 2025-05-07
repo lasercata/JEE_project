@@ -32,7 +32,6 @@ public class RestaurantDAOImpl implements GeneralDAO<Restaurant> {
             closingHours.add(rs.getString(hour));
         }
 
-        //TODO: convert to Schedule here, and change the constructor
         Restaurant result = new Restaurant(id, name, cuisine, openingHours, closingHours, nbOfSeats);
         return result;
     }
