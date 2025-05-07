@@ -66,7 +66,7 @@ public class RestaurantDAOImpl implements GeneralDAO<Restaurant> {
 
         try {
             Statement statement = connexion.createStatement();
-            ResultSet rs = statement.executeQuery("select "+ Restaurant.sqlFields() + " from attractions where id = " + id + ";");
+            ResultSet rs = statement.executeQuery("select "+ Restaurant.sqlFields() + " from " + Restaurant.getTblName() + " where id = " + id + ";");
 
             while(rs.next()) {
                 return this.readQueryResult(rs);

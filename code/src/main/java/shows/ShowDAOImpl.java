@@ -32,7 +32,7 @@ public class ShowDAOImpl implements GeneralDAO<Show> {
             title,
             schedule,
             location,
-            new ArrayList<Character>()
+            new ArrayList<Character>() //TODO: make an SQL request from staring to get the character.
         );
 
         return new_show;
@@ -69,7 +69,7 @@ public class ShowDAOImpl implements GeneralDAO<Show> {
 
         try {
             Statement statement = connexion.createStatement();
-            ResultSet rs = statement.executeQuery("select "+ Show.sqlFields() + " from attractions where id = " + id + ";");
+            ResultSet rs = statement.executeQuery("select "+ Show.sqlFields() + " from " + Show.getTblName() +" where id = " + id + ";");
 
             while(rs.next()) {
                 return this.readQueryResult(rs);
