@@ -1,6 +1,6 @@
 /*
 This file will activate a trigger that prevents the user from adding a character at a show while this character is still busy.
-CASE 3 : Show 1 starts before Show 2, but Show 2 starts less than 30 minutes after Show 1
+CASE 2 : Show 1 starts before Show 2, but Show 2 starts less than 30 minutes after Show 1
 */
 
 insert into show (id, titre, jour, heureDebut, heureFin, lieu) values
