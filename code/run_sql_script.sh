@@ -8,4 +8,5 @@ fi
 
 source code/get_vars.sh
 
-mysql -u "$user" -h "$hostname" --skip-ssl --password="$password" "$db_name" < "$1"
+mysql -u "$user" -h "$hostname" --skip-ssl --password="$password" "$db_name" < "$1" ||
+mysql -u "$user" -h "$hostname" --password="$password" "$db_name" < "$1"
