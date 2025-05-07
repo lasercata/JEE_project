@@ -14,6 +14,42 @@ import utils.DBManager;
 import utils.GeneralDAO;
 
 public class ShowDAOImpl implements GeneralDAO<Show> {
+    /**
+     * Makes an SQL resquest to the DB to get all the characters playing in the show of id `id`.
+     */
+    private ArrayList<Character> getCharactersFromShow(int id) {
+        Connection connexion = DBManager.getInstance().getConnection();
+        ArrayList<Character> charactList = new ArrayList<>();
+
+        try {
+            Statement statement = connexion.createStatement();
+
+            String query = "SELECT characters.id, characters.name FROM characters";
+            query += " JOIN starring ON starring.idCharacter = characters.id";
+            query += " JOIN shows ON starring.idShow = shows.id";
+            query += " WHERE shows.id = " + id + ";";
+
+            ResultSet rs = statement.executeQuery(query);
+
+            while(rs.next()) {
+                int idCharact = rs.getInt("id");
+                String name = rs.getString("name");
+
+                charactList.add(new Character(idCharact, name));
+            }
+
+            return charactList;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            DBManager.getInstance().cleanup(connexion, null, null);
+        }
+
+        return null;
+    }
+
     private Show readQueryResult(ResultSet rs) throws SQLException {
         int id = rs.getInt("id");
         String title = rs.getString("titre");
@@ -26,13 +62,16 @@ public class ShowDAOImpl implements GeneralDAO<Show> {
         HourRange hr = new HourRange(new Hour(begTime), new Hour(endTime));
         EventTime schedule = new EventTime(day, hr);
 
+        // Get the character list
+        ArrayList<Character> charactList = this.getCharactersFromShow(id);
+
         // Create the show
         Show new_show = new Show(
             id,
             title,
             schedule,
             location,
-            new ArrayList<Character>() //TODO: make an SQL request from staring to get the character.
+            charactList
         );
 
         return new_show;
