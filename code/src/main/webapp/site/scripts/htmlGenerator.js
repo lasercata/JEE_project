@@ -49,6 +49,7 @@ class HtmlGenerator {
     this.title = title;
     this.headers = headers;
     this.data = data;
+    this.editingIndex = null;
 
     this.update();
   }
@@ -76,33 +77,22 @@ class HtmlGenerator {
 
     // Create the headers
     const headers_ = document.createElement("tr");
-    console.log(this.headers);
     for (var header in this.headers) {
-      console.log(this.headers[header]);
-      var header_ = document.createElement("th");
+      const header_ = document.createElement("th");
       header_.textContent = this.headers[header];
       headers_.appendChild(header_);
     }
+
+    // Add Edit/Delete column header
+    const actionsHeader = document.createElement("th");
+    actionsHeader.textContent = "Actions";
+    headers_.appendChild(actionsHeader);
+
     this.table.appendChild(headers_);
 
-    // Fill the table
-    console.log(this.data);
-    this.data.forEach((row, index) => {
-      console.log(index);
-      var tr = document.createElement("tr");
-
-      // Iterate through the headers to ensure column order
-      for (var key in this.headers) {
-        var td = document.createElement("td");
-        const value = row[key];
-
-        // Handle arrays (e.g., personnages) by joining them with commas
-        td.textContent = Array.isArray(value) ? value.join(", ") : value;
-        console.log(td.textContent);
-        tr.appendChild(td);
-      }
-
-      this.table.appendChild(tr);
+    // Fill the table with existing data using addTableRow
+    this.data.forEach((row) => {
+      this.addTableRow(row);
     });
 
     // Append the table to the page
@@ -110,8 +100,8 @@ class HtmlGenerator {
   }
 
   /**
-   * adds a row to the table.
-   * @param {JSON} rowData - data to add to the row.
+   * Adds a row to the table.
+   * @param {JSON} rowData - Data to add to the row.
    */
   addTableRow(rowData) {
     if (!this.table) {
@@ -125,13 +115,66 @@ class HtmlGenerator {
     // Créer la ligne de tableau
     const tr = document.createElement("tr");
 
+    const cellRefs = [];
+
     for (const key in this.headers) {
       const td = document.createElement("td");
       const value = rowData[key];
-      console.log(key, rowData, rowData.key, value);
       td.textContent = Array.isArray(value) ? value.join(", ") : value ?? "";
       tr.appendChild(td);
+      cellRefs.push(td);
     }
+
+    // Boutons d'action
+    const actionsTd = document.createElement("td");
+
+    const editBtn = document.createElement("button");
+    editBtn.textContent = "✏️";
+
+    const setEditHandler = () => {
+      // Remplacer chaque cellule par un input
+      cellRefs.forEach((td, i) => {
+        const key = Object.keys(this.headers)[i];
+        const input = document.createElement("input");
+        input.value = Array.isArray(rowData[key])
+          ? rowData[key].join(", ")
+          : rowData[key];
+        td.textContent = "";
+        td.appendChild(input);
+      });
+
+      editBtn.textContent = "✅";
+      editBtn.onclick = () => {
+        cellRefs.forEach((td, i) => {
+          const input = td.querySelector("input");
+          const key = Object.keys(this.headers)[i];
+          const newValue = input.value.includes(",")
+            ? input.value.split(",").map((s) => s.trim())
+            : input.value;
+          rowData[key] = newValue;
+          td.textContent = Array.isArray(newValue)
+            ? newValue.join(", ")
+            : newValue;
+        });
+
+        editBtn.textContent = "✏️";
+        editBtn.onclick = setEditHandler;
+      };
+    };
+
+    editBtn.onclick = setEditHandler;
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "🗑️";
+    deleteBtn.onclick = () => {
+      const rowIndex = this.data.indexOf(rowData);
+      if (rowIndex > -1) this.data.splice(rowIndex, 1);
+      tr.remove();
+    };
+
+    actionsTd.appendChild(editBtn);
+    actionsTd.appendChild(deleteBtn);
+    tr.appendChild(actionsTd);
 
     this.table.appendChild(tr);
   }
